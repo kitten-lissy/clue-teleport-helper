@@ -60,22 +60,35 @@ public class ClueTeleportHelperPanelOverlay extends Overlay {
 
         for (int i = 0; i < bestTeleports.size(); i++) {
             TeleportData teleport = bestTeleports.get(i);
-            String displayText = (i + 1) + ". " + teleport.getName();
+            String fullName = teleport.getName();
+
+            // Split "Destination (Item)" into two parts
+            String destination = fullName;
+            String itemHint = null;
+            int parenStart = fullName.lastIndexOf('(');
+            if (parenStart > 0) {
+                destination = fullName.substring(0, parenStart).trim();
+                itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
+            }
+
+            String displayText = (i + 1) + ". " + destination;
 
             if (isOverride) {
                 panelComponent.getChildren().add(LineComponent.builder()
                         .left(displayText)
                         .leftColor(new Color(255, 182, 193))
+                        .right(itemHint)
+                        .rightColor(new Color(255, 105, 180))
                         .build());
             } else {
                 int distance = teleport.getLocation().distanceTo(clueLocation);
-                String distanceText = distance + " tiles";
 
+                // Show item hint on the right instead of distance
                 panelComponent.getChildren().add(LineComponent.builder()
                         .left(displayText)
                         .leftColor(new Color(255, 182, 193))
-                        .right(distanceText)
-                        .rightColor(getDistanceColor(distance))
+                        .right(itemHint != null ? itemHint + " - " + distance + "t" : distance + " tiles")
+                        .rightColor(new Color(255, 105, 180))
                         .build());
             }
         }
