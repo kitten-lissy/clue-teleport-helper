@@ -73,22 +73,20 @@ public class ClueTeleportHelperPanelOverlay extends Overlay {
 
             String displayText = (i + 1) + ". " + destination;
 
-            if (isOverride) {
-                panelComponent.getChildren().add(LineComponent.builder()
-                        .left(displayText)
-                        .leftColor(new Color(255, 182, 193))
-                        .right(itemHint)
-                        .rightColor(new Color(255, 105, 180))
-                        .build());
-            } else {
-                int distance = teleport.getLocation().distanceTo(clueLocation);
+            // Line 1: Destination (light pink) | Item (hot pink)
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left(displayText)
+                    .leftColor(new Color(255, 182, 193))
+                    .right(itemHint)
+                    .rightColor(new Color(255, 105, 180))
+                    .build());
 
-                // Show item hint on the right instead of distance
+            // Line 2: Distance (only in non-override mode)
+            if (!isOverride) {
+                int distance = teleport.getLocation().distanceTo(clueLocation);
                 panelComponent.getChildren().add(LineComponent.builder()
-                        .left(displayText)
-                        .leftColor(new Color(255, 182, 193))
-                        .right(itemHint != null ? itemHint + " - " + distance + "t" : distance + " tiles")
-                        .rightColor(new Color(255, 105, 180))
+                        .right(distance + " tiles")
+                        .rightColor(new Color(255, 160, 122))
                         .build());
             }
         }
