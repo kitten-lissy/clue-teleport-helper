@@ -41,6 +41,8 @@ public class ClueTeleportHelperPlugin extends Plugin {
     private static final int MAX_TELEPORTS = 5;
 
     private List<TeleportData> currentBestTeleports = new ArrayList<>();
+    private boolean overrideActive = false;
+    private String overrideNote = null;
 
     @Override
     protected void startUp() {
@@ -76,11 +78,21 @@ public class ClueTeleportHelperPlugin extends Plugin {
             return;
         }
 
-        currentBestTeleports = Arrays.stream(TeleportData.values())
-                .filter(tp -> tp.getLocation() != null)
-                .sorted(Comparator.comparingInt(tp -> tp.getLocation().distanceTo(clueLocation)))
-                .limit(MAX_TELEPORTS)
-                .collect(Collectors.toList());
+        // Check manual overrides first (islands, rune altars, etc.)
+        LocationOverrides.OverrideResult overrideResult = LocationOverrides.getOverride(clueLocation);
+        if (overrideResult != null) {
+            currentBestTeleports = new ArrayList<>(overrideResult.teleports);
+            overrideActive = true;
+            overrideNote = overrideResult.note;
+        } else {
+            overrideActive = false;
+            overrideNote = null;
+            currentBestTeleports = Arrays.stream(TeleportData.values())
+                    .filter(tp -> tp.getLocation() != null)
+                    .sorted(Comparator.comparingInt(tp -> tp.getLocation().distanceTo(clueLocation)))
+                    .limit(MAX_TELEPORTS)
+                    .collect(Collectors.toList());
+        }
 
         // Update inventory overlay with new items
         inventoryOverlay.updateRelevantItems(currentBestTeleports);
@@ -98,6 +110,14 @@ public class ClueTeleportHelperPlugin extends Plugin {
 
     public List<TeleportData> getBestTeleports() {
         return currentBestTeleports;
+    }
+
+    public boolean isOverrideActive() {
+        return overrideActive;
+    }
+
+    public String getOverrideNote() {
+        return overrideNote;
     }
 
     public WorldPoint getClueScrollLocation() {

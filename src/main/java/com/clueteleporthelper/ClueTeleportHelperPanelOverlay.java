@@ -48,19 +48,36 @@ public class ClueTeleportHelperPanelOverlay extends Overlay {
                 .color(new Color(255, 105, 180))
                 .build());
 
+        boolean isOverride = plugin.isOverrideActive();
+        String overrideNote = plugin.getOverrideNote();
+
+        if (isOverride && overrideNote != null) {
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left(overrideNote)
+                    .leftColor(new Color(255, 215, 0))
+                    .build());
+        }
+
         for (int i = 0; i < bestTeleports.size(); i++) {
             TeleportData teleport = bestTeleports.get(i);
-            int distance = teleport.getLocation().distanceTo(clueLocation);
-
             String displayText = (i + 1) + ". " + teleport.getName();
-            String distanceText = distance + " tiles";
 
-            panelComponent.getChildren().add(LineComponent.builder()
-                    .left(displayText)
-                    .leftColor(new Color(255, 182, 193))
-                    .right(distanceText)
-                    .rightColor(getDistanceColor(distance))
-                    .build());
+            if (isOverride) {
+                panelComponent.getChildren().add(LineComponent.builder()
+                        .left(displayText)
+                        .leftColor(new Color(255, 182, 193))
+                        .build());
+            } else {
+                int distance = teleport.getLocation().distanceTo(clueLocation);
+                String distanceText = distance + " tiles";
+
+                panelComponent.getChildren().add(LineComponent.builder()
+                        .left(displayText)
+                        .leftColor(new Color(255, 182, 193))
+                        .right(distanceText)
+                        .rightColor(getDistanceColor(distance))
+                        .build());
+            }
         }
 
         return panelComponent.render(graphics);

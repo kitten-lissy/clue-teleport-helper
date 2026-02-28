@@ -195,7 +195,102 @@ public enum TeleportData {
     FAIRY_DKR("Fairy Ring DKR (Edgeville)", new WorldPoint(3131, 3496, 0)),
     FAIRY_DKS("Fairy Ring DKS (Snowy)", new WorldPoint(2744, 3719, 0)),
     FAIRY_DLQ("Fairy Ring DLQ (North)", new WorldPoint(3423, 3016, 0)),
-    FAIRY_DLR("Fairy Ring DLR (Poison Waste)", new WorldPoint(2213, 3099, 0));
+    FAIRY_DLR("Fairy Ring DLR (Poison Waste)", new WorldPoint(2213, 3099, 0)),
+    FAIRY_BJS("Fairy Ring BJS (Zul-Andra)", new WorldPoint(2147, 3069, 0)),
+
+    // Teleport Crystal
+    PRIFDDINAS("Prifddinas (Crystal)", new WorldPoint(3264, 6065, 0),
+            ItemID.ETERNAL_TELEPORT_CRYSTAL, ItemID.TELEPORT_CRYSTAL,
+            ItemID.TELEPORT_CRYSTAL_5, ItemID.TELEPORT_CRYSTAL_4,
+            ItemID.TELEPORT_CRYSTAL_3, ItemID.TELEPORT_CRYSTAL_2,
+            ItemID.TELEPORT_CRYSTAL_1),
+
+    // Spirit Trees (no items - interact with tree directly)
+    SPIRIT_TREE_GNOME_STRONGHOLD("Spirit Tree (Gnome Stronghold)", new WorldPoint(2459, 3446, 0)),
+    SPIRIT_TREE_GNOME_VILLAGE("Spirit Tree (Gnome Village)", new WorldPoint(2538, 3166, 0)),
+    SPIRIT_TREE_KHAZARD("Spirit Tree (Battlefield of Khazard)", new WorldPoint(2554, 3259, 0)),
+    SPIRIT_TREE_GRAND_EXCHANGE("Spirit Tree (Grand Exchange)", new WorldPoint(3184, 3510, 0)),
+    SPIRIT_TREE_FELDIP("Spirit Tree (Feldip Hills)", new WorldPoint(2486, 2850, 0)),
+    SPIRIT_TREE_POISON_WASTE("Spirit Tree (Poison Waste)", new WorldPoint(2339, 3111, 0)),
+    SPIRIT_TREE_ETCETERIA("Spirit Tree (Etceteria)", new WorldPoint(2613, 3858, 0)),
+    SPIRIT_TREE_PORT_SARIM("Spirit Tree (Port Sarim)", new WorldPoint(3060, 3258, 0)),
+    SPIRIT_TREE_BRIMHAVEN("Spirit Tree (Brimhaven)", new WorldPoint(2802, 3203, 0)),
+    SPIRIT_TREE_HOSIDIUS("Spirit Tree (Hosidius)", new WorldPoint(1693, 3542, 0)),
+    SPIRIT_TREE_FARMING_GUILD("Spirit Tree (Farming Guild)", new WorldPoint(1253, 3750, 0)),
+
+    // Burning Amulet (Wilderness)
+    CHAOS_TEMPLE("Chaos Temple (Burning)", new WorldPoint(3234, 3634, 0),
+            ItemID.BURNING_AMULET5, ItemID.BURNING_AMULET4, ItemID.BURNING_AMULET3,
+            ItemID.BURNING_AMULET2, ItemID.BURNING_AMULET1),
+    BANDIT_CAMP("Bandit Camp (Burning)", new WorldPoint(3038, 3651, 0),
+            ItemID.BURNING_AMULET5, ItemID.BURNING_AMULET4, ItemID.BURNING_AMULET3,
+            ItemID.BURNING_AMULET2, ItemID.BURNING_AMULET1),
+    LAVA_MAZE("Lava Maze (Burning)", new WorldPoint(3028, 3842, 0),
+            ItemID.BURNING_AMULET5, ItemID.BURNING_AMULET4, ItemID.BURNING_AMULET3,
+            ItemID.BURNING_AMULET2, ItemID.BURNING_AMULET1),
+
+    // Slayer Ring
+    STRONGHOLD_SLAYER_CAVE("Stronghold Slayer Cave", new WorldPoint(2431, 3422, 0),
+            ItemID.SLAYER_RING_ETERNAL, ItemID.SLAYER_RING_8, ItemID.SLAYER_RING_7,
+            ItemID.SLAYER_RING_6, ItemID.SLAYER_RING_5, ItemID.SLAYER_RING_4,
+            ItemID.SLAYER_RING_3, ItemID.SLAYER_RING_2, ItemID.SLAYER_RING_1),
+    SLAYER_TOWER("Slayer Tower", new WorldPoint(3421, 3537, 0),
+            ItemID.SLAYER_RING_ETERNAL, ItemID.SLAYER_RING_8, ItemID.SLAYER_RING_7,
+            ItemID.SLAYER_RING_6, ItemID.SLAYER_RING_5, ItemID.SLAYER_RING_4,
+            ItemID.SLAYER_RING_3, ItemID.SLAYER_RING_2, ItemID.SLAYER_RING_1),
+    FREMENNIK_SLAYER_DUNGEON("Fremennik Slayer Dungeon", new WorldPoint(2802, 9999, 0),
+            ItemID.SLAYER_RING_ETERNAL, ItemID.SLAYER_RING_8, ItemID.SLAYER_RING_7,
+            ItemID.SLAYER_RING_6, ItemID.SLAYER_RING_5, ItemID.SLAYER_RING_4,
+            ItemID.SLAYER_RING_3, ItemID.SLAYER_RING_2, ItemID.SLAYER_RING_1),
+    TARNS_LAIR("Tarn's Lair", new WorldPoint(2028, 4636, 0),
+            ItemID.SLAYER_RING_ETERNAL, ItemID.SLAYER_RING_8, ItemID.SLAYER_RING_7,
+            ItemID.SLAYER_RING_6, ItemID.SLAYER_RING_5, ItemID.SLAYER_RING_4,
+            ItemID.SLAYER_RING_3, ItemID.SLAYER_RING_2, ItemID.SLAYER_RING_1),
+    DARK_BEASTS("Dark Beasts", new WorldPoint(3185, 4601, 0),
+            ItemID.SLAYER_RING_ETERNAL, ItemID.SLAYER_RING_8, ItemID.SLAYER_RING_7,
+            ItemID.SLAYER_RING_6, ItemID.SLAYER_RING_5, ItemID.SLAYER_RING_4,
+            ItemID.SLAYER_RING_3, ItemID.SLAYER_RING_2, ItemID.SLAYER_RING_1),
+
+    // Drakan's Medallion (Morytania)
+    VER_SINHAZA("Ver Sinhaza (Drakan's)", new WorldPoint(3649, 3230, 0),
+            ItemID.DRAKANS_MEDALLION),
+    DARKMEYER("Darkmeyer (Drakan's)", new WorldPoint(3592, 3337, 0),
+            ItemID.DRAKANS_MEDALLION),
+
+    // Kharedst's Memoirs / Book of the Dead (Kourend)
+    HOSIDIUS("Hosidius (Memoirs)", new WorldPoint(1520, 3478, 0),
+            ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
+    PISCARILIUS("Piscarilius (Memoirs)", new WorldPoint(1713, 3612, 0),
+            ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
+    SHAYZIEN("Shayzien (Memoirs)", new WorldPoint(1804, 3748, 0),
+            ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
+    LOVAKENGJ("Lovakengj (Memoirs)", new WorldPoint(1478, 3576, 0),
+            ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
+    ARCEUUS("Arceuus (Memoirs)", new WorldPoint(1681, 3747, 0),
+            ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
+
+    // Stony Basalt / Icy Basalt
+    TROLL_STRONGHOLD("Troll Stronghold (Basalt)", new WorldPoint(2845, 3694, 0),
+            ItemID.STONY_BASALT),
+    WEISS("Weiss (Basalt)", new WorldPoint(2846, 3938, 0),
+            ItemID.ICY_BASALT),
+
+    // Pharaoh's Sceptre (Desert)
+    PYRAMID_PLUNDER("Pyramid Plunder (Sceptre)", new WorldPoint(1934, 4428, 0),
+            ItemID.PHARAOHS_SCEPTRE, ItemID.PHARAOHS_SCEPTRE_9045, ItemID.PHARAOHS_SCEPTRE_9046,
+            ItemID.PHARAOHS_SCEPTRE_9047, ItemID.PHARAOHS_SCEPTRE_9048, ItemID.PHARAOHS_SCEPTRE_9049,
+            ItemID.PHARAOHS_SCEPTRE_9050, ItemID.PHARAOHS_SCEPTRE_9051,
+            ItemID.PHARAOHS_SCEPTRE_UNCHARGED, ItemID.PHARAOHS_SCEPTRE_26948, ItemID.PHARAOHS_SCEPTRE_26950),
+    AGILITY_PYRAMID("Agility Pyramid (Sceptre)", new WorldPoint(3341, 2827, 0),
+            ItemID.PHARAOHS_SCEPTRE, ItemID.PHARAOHS_SCEPTRE_9045, ItemID.PHARAOHS_SCEPTRE_9046,
+            ItemID.PHARAOHS_SCEPTRE_9047, ItemID.PHARAOHS_SCEPTRE_9048, ItemID.PHARAOHS_SCEPTRE_9049,
+            ItemID.PHARAOHS_SCEPTRE_9050, ItemID.PHARAOHS_SCEPTRE_9051,
+            ItemID.PHARAOHS_SCEPTRE_UNCHARGED, ItemID.PHARAOHS_SCEPTRE_26948, ItemID.PHARAOHS_SCEPTRE_26950),
+    ANCIENT_PYRAMID("Ancient Pyramid (Sceptre)", new WorldPoint(3232, 2897, 0),
+            ItemID.PHARAOHS_SCEPTRE, ItemID.PHARAOHS_SCEPTRE_9045, ItemID.PHARAOHS_SCEPTRE_9046,
+            ItemID.PHARAOHS_SCEPTRE_9047, ItemID.PHARAOHS_SCEPTRE_9048, ItemID.PHARAOHS_SCEPTRE_9049,
+            ItemID.PHARAOHS_SCEPTRE_9050, ItemID.PHARAOHS_SCEPTRE_9051,
+            ItemID.PHARAOHS_SCEPTRE_UNCHARGED, ItemID.PHARAOHS_SCEPTRE_26948, ItemID.PHARAOHS_SCEPTRE_26950);
 
     private final String name;
     private final WorldPoint location;

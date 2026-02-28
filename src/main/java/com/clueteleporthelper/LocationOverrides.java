@@ -1,0 +1,337 @@
+package com.clueteleporthelper;
+
+import net.runelite.api.coords.WorldPoint;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LocationOverrides {
+
+    private static final List<OverrideRegion> OVERRIDES = new ArrayList<>();
+
+    private static final String ABYSS_WARNING = "Via Abyss (Wilderness - be careful!)";
+
+    static {
+        // Teleports near Mage of Zamorak (~3102, 3557) for Abyss access
+        List<TeleportData> abyssTeleports = Arrays.asList(
+                TeleportData.EDGEVILLE,
+                TeleportData.FAIRY_DKR,
+                TeleportData.FEROX_ENCLAVE
+        );
+
+        // Rellekka-departure islands (Neitiznot, Jatizso, Waterbirth, Lunar Isle)
+        List<TeleportData> rellekkaTeleports = Arrays.asList(
+                TeleportData.FAIRY_AJR,
+                TeleportData.FAIRY_DKS
+        );
+
+        // --- Island Overrides ---
+
+        // Entrana: boat from Port Sarim
+        OVERRIDES.add(new OverrideRegion(
+                2800, 2880, 3300, 3400, 0,
+                Arrays.asList(
+                        TeleportData.DRAYNOR_VILLAGE,
+                        TeleportData.FALADOR,
+                        TeleportData.EXPLORERS_RING
+                ),
+                "Boat from Port Sarim"
+        ));
+
+        // Crandor: via Karamja volcano or Corsair Cove
+        OVERRIDES.add(new OverrideRegion(
+                2810, 2870, 3230, 3310, 0,
+                Arrays.asList(
+                        TeleportData.KARAMJA,
+                        TeleportData.FAIRY_AIQ
+                ),
+                "Via Karamja volcano"
+        ));
+
+        // Fossil Island: boat from Digsite
+        OVERRIDES.add(new OverrideRegion(
+                3620, 3850, 3740, 3910, 0,
+                Arrays.asList(
+                        TeleportData.DIGSITE
+                ),
+                "Boat from Digsite"
+        ));
+
+        // Mos Le'Harmless: charter from Port Phasmatys
+        OVERRIDES.add(new OverrideRegion(
+                3640, 3860, 2920, 3100, 0,
+                Arrays.asList(
+                        TeleportData.ECTOPHIAL,
+                        TeleportData.MOS_LEHARMLESS
+                ),
+                "Charter from Port Phasmatys"
+        ));
+
+        // Ape Atoll
+        OVERRIDES.add(new OverrideRegion(
+                2680, 2820, 2680, 2820, 0,
+                Arrays.asList(
+                        TeleportData.SPIRIT_TREE_GNOME_STRONGHOLD
+                ),
+                "Spirit Tree to Gnome Stronghold, then Glider"
+        ));
+
+        // Crash Island (near Ape Atoll, Monkey Madness route)
+        OVERRIDES.add(new OverrideRegion(
+                2890, 2950, 2700, 2750, 0,
+                Arrays.asList(
+                        TeleportData.SPIRIT_TREE_GNOME_STRONGHOLD
+                ),
+                "Spirit Tree to Gnome Stronghold, then Glider"
+        ));
+
+        // Neitiznot
+        OVERRIDES.add(new OverrideRegion(
+                2290, 2370, 3760, 3830, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka"
+        ));
+
+        // Jatizso
+        OVERRIDES.add(new OverrideRegion(
+                2370, 2440, 3760, 3830, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka"
+        ));
+
+        // Waterbirth Island
+        OVERRIDES.add(new OverrideRegion(
+                2490, 2570, 3710, 3780, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka"
+        ));
+
+        // Lunar Isle
+        OVERRIDES.add(new OverrideRegion(
+                2060, 2180, 3870, 3960, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka"
+        ));
+
+        // Zul-Andra area
+        OVERRIDES.add(new OverrideRegion(
+                2120, 2210, 3050, 3110, 0,
+                Arrays.asList(
+                        TeleportData.FAIRY_BJS
+                ),
+                "Fairy Ring BJS"
+        ));
+
+        // Karamja - Cairn Isle (south Karamja, walk-only)
+        OVERRIDES.add(new OverrideRegion(
+                2750, 2840, 2950, 3020, 0,
+                Arrays.asList(
+                        TeleportData.KARAMJA,
+                        TeleportData.FAIRY_CKR,
+                        TeleportData.TAI_BWO_WANNAI
+                ),
+                null
+        ));
+
+        // --- Rune Altar Interior Overrides ---
+        // All altar interiors suggest teleports near Mage of Zamorak for Abyss access.
+
+        // Air Altar interior
+        OVERRIDES.add(new OverrideRegion(2816, 2862, 4800, 4860, 0, abyssTeleports, ABYSS_WARNING));
+        // Mind Altar interior
+        OVERRIDES.add(new OverrideRegion(2764, 2814, 4820, 4870, 0, abyssTeleports, ABYSS_WARNING));
+        // Water Altar interior
+        OVERRIDES.add(new OverrideRegion(2688, 2740, 4820, 4870, 0, abyssTeleports, ABYSS_WARNING));
+        // Earth Altar interior
+        OVERRIDES.add(new OverrideRegion(2624, 2672, 4820, 4870, 0, abyssTeleports, ABYSS_WARNING));
+        // Fire Altar interior
+        OVERRIDES.add(new OverrideRegion(2560, 2608, 4820, 4870, 0, abyssTeleports, ABYSS_WARNING));
+        // Body Altar interior
+        OVERRIDES.add(new OverrideRegion(2496, 2544, 4820, 4870, 0, abyssTeleports, ABYSS_WARNING));
+        // Cosmic Altar interior
+        OVERRIDES.add(new OverrideRegion(2112, 2176, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Law Altar interior
+        OVERRIDES.add(new OverrideRegion(2432, 2480, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Nature Altar interior
+        OVERRIDES.add(new OverrideRegion(2368, 2416, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Death Altar interior
+        OVERRIDES.add(new OverrideRegion(2176, 2224, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Blood Altar interior
+        OVERRIDES.add(new OverrideRegion(3200, 3264, 4800, 4880, 0, abyssTeleports, ABYSS_WARNING));
+        // Soul Altar interior
+        OVERRIDES.add(new OverrideRegion(1792, 1856, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Wrath Altar interior
+        OVERRIDES.add(new OverrideRegion(2304, 2368, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+
+        // --- Dungeon Overrides (Underground, Y > 9000) ---
+
+        // Lumbridge Swamp Caves
+        OVERRIDES.add(new OverrideRegion(3140, 3260, 9540, 9670, 0,
+                Arrays.asList(TeleportData.LUMBRIDGE),
+                "Lumbridge Swamp entrance"));
+
+        // Edgeville Dungeon
+        OVERRIDES.add(new OverrideRegion(3050, 3160, 9820, 10050, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.FAIRY_DKR),
+                "Edgeville trapdoor"));
+
+        // Varrock Sewers
+        OVERRIDES.add(new OverrideRegion(3150, 3290, 9855, 9920, 0,
+                Arrays.asList(TeleportData.VARROCK, TeleportData.GRAND_EXCHANGE),
+                "Varrock Sewers"));
+
+        // Yanille Agility Dungeon
+        OVERRIDES.add(new OverrideRegion(2550, 2620, 9550, 9630, 0,
+                Arrays.asList(TeleportData.WATCHTOWER),
+                "Yanille dungeon entrance"));
+
+        // Kourend Catacombs
+        OVERRIDES.add(new OverrideRegion(1600, 1730, 9980, 10110, 0,
+                Arrays.asList(TeleportData.XERICS_HEART),
+                "Kourend Catacombs"));
+
+        // Fountain of Heroes (Heroes' Guild basement)
+        OVERRIDES.add(new OverrideRegion(2880, 2960, 9860, 9940, 0,
+                Arrays.asList(TeleportData.FALADOR, TeleportData.CHAMPIONS_GUILD),
+                "Heroes' Guild basement"));
+
+        // Barrows Crypts
+        OVERRIDES.add(new OverrideRegion(3520, 3590, 9660, 9740, 0,
+                Arrays.asList(TeleportData.FAIRY_BKR, TeleportData.ECTOPHIAL),
+                "Barrows"));
+
+        // Motherlode Mine / Dwarven Mine
+        OVERRIDES.add(new OverrideRegion(3010, 3100, 9710, 9810, 0,
+                Arrays.asList(TeleportData.FALADOR),
+                "Dwarven Mine / Motherlode"));
+
+        // Taverley Dungeon
+        OVERRIDES.add(new OverrideRegion(2820, 2950, 9760, 9870, 0,
+                Arrays.asList(TeleportData.FALADOR, TeleportData.BURTHORPE),
+                "Taverley Dungeon"));
+
+        // Slayer Tower Basement
+        OVERRIDES.add(new OverrideRegion(3400, 3460, 9880, 9960, 0,
+                Arrays.asList(TeleportData.FAIRY_CKS, TeleportData.ECTOPHIAL),
+                "Slayer Tower basement"));
+
+        // --- Dungeon Overrides (Instanced/Special, Y ~4000-6000) ---
+
+        // KBD Lair
+        OVERRIDES.add(new OverrideRegion(2240, 2320, 4640, 4730, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.FEROX_ENCLAVE),
+                "Wilderness lever (be careful!)"));
+
+        // TzHaar / Mor Ul Rek
+        OVERRIDES.add(new OverrideRegion(2400, 2520, 5100, 5200, 0,
+                Arrays.asList(TeleportData.KARAMJA, TeleportData.FAIRY_BLP),
+                "Karamja volcano entrance"));
+
+        // Ancient Cavern
+        OVERRIDES.add(new OverrideRegion(1700, 1820, 5320, 5410, 0,
+                Arrays.asList(TeleportData.BARBARIAN_ASSAULT),
+                "Whirlpool near Barbarian Assault"));
+
+        // Shadow Dungeon
+        OVERRIDES.add(new OverrideRegion(2590, 2680, 5030, 5120, 0,
+                Arrays.asList(TeleportData.BARBARIAN_ASSAULT),
+                "Ring of visibility required"));
+
+        // God Wars Dungeon
+        OVERRIDES.add(new OverrideRegion(2820, 2980, 5250, 5380, 0,
+                Arrays.asList(TeleportData.TROLLHEIM),
+                "God Wars Dungeon"));
+
+        // Agility Pyramid top
+        OVERRIDES.add(new OverrideRegion(3010, 3080, 4660, 4740, 0,
+                Arrays.asList(TeleportData.NARDAH),
+                "Agility Pyramid"));
+
+        // Watchtower upper
+        OVERRIDES.add(new OverrideRegion(2890, 2970, 4680, 4760, 0,
+                Arrays.asList(TeleportData.WATCHTOWER),
+                "Watchtower"));
+
+        // Iban's Temple (Underground Pass)
+        OVERRIDES.add(new OverrideRegion(1960, 2060, 4670, 4760, 0,
+                Arrays.asList(TeleportData.ARDOUGNE),
+                "Underground Pass"));
+
+        // --- Other Special Area Overrides ---
+
+        // Prifddinas (elf city, special dimension)
+        OVERRIDES.add(new OverrideRegion(3200, 3327, 6016, 6143, 0,
+                Arrays.asList(TeleportData.PRIFDDINAS),
+                "Teleport Crystal / Eternal Crystal"));
+
+        // Lletya (hidden elf village in Tirannwn)
+        OVERRIDES.add(new OverrideRegion(2280, 2380, 3100, 3220, 0,
+                Arrays.asList(TeleportData.PRIFDDINAS),
+                "Teleport Crystal to Lletya"));
+
+        // Zanaris (fairy realm, special dimension)
+        OVERRIDES.add(new OverrideRegion(2368, 2496, 4352, 4480, 0,
+                Arrays.asList(
+                        TeleportData.EDGEVILLE,
+                        TeleportData.FAIRY_DKR,
+                        TeleportData.FAIRY_CKS
+                ),
+                "Any Fairy Ring"));
+
+        // Keldagrim (underground dwarf city)
+        OVERRIDES.add(new OverrideRegion(2816, 2960, 10048, 10240, 0,
+                Arrays.asList(TeleportData.GRAND_EXCHANGE, TeleportData.FAIRY_DKS),
+                "Mine cart from GE or cave east of Rellekka"));
+
+        // Dorgesh-Kaan (underground goblin city)
+        OVERRIDES.add(new OverrideRegion(2688, 2752, 5248, 5376, 0,
+                Arrays.asList(TeleportData.LUMBRIDGE),
+                "Lumbridge cellar entrance"));
+
+        // Deep Wilderness (level ~30+)
+        OVERRIDES.add(new OverrideRegion(2940, 3400, 3752, 3968, 0,
+                Arrays.asList(TeleportData.LAVA_MAZE, TeleportData.FEROX_ENCLAVE, TeleportData.EDGEVILLE),
+                "Burning Amulet or Wilderness Obelisk"));
+    }
+
+    public static OverrideResult getOverride(WorldPoint clueLocation) {
+        for (OverrideRegion region : OVERRIDES) {
+            if (region.contains(clueLocation)) {
+                return new OverrideResult(region.teleports, region.note);
+            }
+        }
+        return null;
+    }
+
+    public static class OverrideResult {
+        public final List<TeleportData> teleports;
+        public final String note;
+
+        OverrideResult(List<TeleportData> teleports, String note) {
+            this.teleports = teleports;
+            this.note = note;
+        }
+    }
+
+    private static class OverrideRegion {
+        final int minX, maxX, minY, maxY, plane;
+        final List<TeleportData> teleports;
+        final String note;
+
+        OverrideRegion(int minX, int maxX, int minY, int maxY, int plane, List<TeleportData> teleports, String note) {
+            this.minX = minX;
+            this.maxX = maxX;
+            this.minY = minY;
+            this.maxY = maxY;
+            this.plane = plane;
+            this.teleports = teleports;
+            this.note = note;
+        }
+
+        boolean contains(WorldPoint point) {
+            return point.getPlane() == plane
+                    && point.getX() >= minX && point.getX() <= maxX
+                    && point.getY() >= minY && point.getY() <= maxY;
+        }
+    }
+}
