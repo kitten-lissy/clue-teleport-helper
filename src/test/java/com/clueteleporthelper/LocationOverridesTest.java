@@ -47,6 +47,13 @@ public class LocationOverridesTest {
         assertOverrideContains(getOverride(2120, 3910), "Boat from Rellekka", TeleportData.FAIRY_DKS);
     }
 
+    // --- Coastal Overrides ---
+
+    @Test
+    public void testRimmington() {
+        assertOverrideContains(getOverride(2954, 3224), "Glory Karamja goes to Musa Point, not Rimmington", TeleportData.HOUSE_RIMMINGTON, TeleportData.EXPLORERS_RING);
+    }
+
     // --- Rune Altar Interiors ---
 
     @Test
@@ -107,11 +114,46 @@ public class LocationOverridesTest {
     }
 
     @Test
+    public void testPaterdomusDungeon() {
+        assertOverrideContains(getOverride(3439, 9896), "Paterdomus Temple (Drezel)", TeleportData.FAIRY_CKS, TeleportData.LUMBERYARD);
+    }
+
+    @Test
+    public void testStrongholdOfSecurity() {
+        assertOverrideContains(getOverride(1888, 5216), "Entrance in Barbarian Village", TeleportData.EDGEVILLE, TeleportData.VARROCK);
+    }
+
+    @Test
+    public void testLavaMazeDungeon() {
+        assertOverrideContains(getOverride(3050, 10300), "Deep Wilderness dungeon - Ferox as home base", TeleportData.FEROX_ENCLAVE);
+    }
+
+    @Test
+    public void testCerberusLair() {
+        assertOverrideContains(getOverride(1270, 1250), "Taverley Dungeon entrance", TeleportData.FALADOR, TeleportData.BURTHORPE);
+    }
+
+    @Test
+    public void testViyeldiCaves() {
+        assertOverrideContains(getOverride(2792, 9327), "Kharazi Jungle entrance", TeleportData.FAIRY_CKR, TeleportData.TAI_BWO_WANNAI);
+    }
+
+    @Test
     public void testSlayerTowerBasement() {
         assertOverrideContains(getOverride(3430, 9920), "Slayer Tower basement", TeleportData.FAIRY_CKS, TeleportData.ECTOPHIAL);
     }
 
     // --- Instanced/Special Dungeons (Y ~4000-6000) ---
+
+    @Test
+    public void testRoguesDen() {
+        assertOverrideContains(getOverride(3056, 4991), "Trapdoor in Burthorpe pub", TeleportData.BURTHORPE, TeleportData.WARRIORS_GUILD);
+    }
+
+    @Test
+    public void testAbyssInnerRing() {
+        assertOverrideContains(getOverride(3020, 4850), "Via Abyss (Wilderness - be careful!)", TeleportData.EDGEVILLE, TeleportData.FAIRY_DKR);
+    }
 
     @Test
     public void testKBDLair() {
@@ -173,6 +215,16 @@ public class LocationOverridesTest {
     @Test
     public void testKeldagrim() {
         assertOverrideContains(getOverride(2880, 10150), "Mine cart from GE or cave east of Rellekka", TeleportData.GRAND_EXCHANGE);
+    }
+
+    @Test
+    public void testWaterbirthDungeon() {
+        assertOverrideContains(getOverride(2500, 10150), "Boat from Rellekka to Waterbirth", TeleportData.FAIRY_AJR, TeleportData.FAIRY_DKS);
+    }
+
+    @Test
+    public void testMiscellaniaDungeon() {
+        assertOverrideContains(getOverride(2560, 10260), "Boat from Rellekka to Miscellania", TeleportData.FAIRY_AJR, TeleportData.FAIRY_DKS);
     }
 
     @Test

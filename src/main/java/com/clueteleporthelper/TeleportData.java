@@ -198,6 +198,26 @@ public enum TeleportData {
     FAIRY_DLR("Fairy Ring DLR (Poison Waste)", new WorldPoint(2213, 3099, 0)),
     FAIRY_BJS("Fairy Ring BJS (Zul-Andra)", new WorldPoint(2147, 3069, 0)),
 
+    // House Teleport Tabs (Redirected)
+    HOUSE_RIMMINGTON("Rimmington (House Tab)", new WorldPoint(2954, 3224, 0),
+            ItemID.RIMMINGTON_TELEPORT),
+    HOUSE_TAVERLEY("Taverley (House Tab)", new WorldPoint(2894, 3465, 0),
+            ItemID.TAVERLEY_TELEPORT),
+    HOUSE_POLLNIVNEACH("Pollnivneach (House Tab)", new WorldPoint(3340, 3003, 0),
+            ItemID.POLLNIVNEACH_TELEPORT),
+    HOUSE_RELLEKKA("Rellekka (House Tab)", new WorldPoint(2670, 3632, 0),
+            ItemID.RELLEKKA_TELEPORT),
+    HOUSE_BRIMHAVEN("Brimhaven (House Tab)", new WorldPoint(2750, 3178, 0),
+            ItemID.BRIMHAVEN_TELEPORT),
+    HOUSE_YANILLE("Yanille (House Tab)", new WorldPoint(2544, 3095, 0),
+            ItemID.YANILLE_TELEPORT),
+    HOUSE_HOSIDIUS("Hosidius (House Tab)", new WorldPoint(1744, 3517, 0),
+            ItemID.HOSIDIUS_TELEPORT),
+    HOUSE_TROLLHEIM("Trollheim (House Tab)", new WorldPoint(2891, 3678, 0),
+            ItemID.TROLLHEIM_TELEPORT),
+    HOUSE_PRIFDDINAS("Prifddinas (House Tab)", new WorldPoint(3264, 6065, 0),
+            ItemID.PRIFDDINAS_TELEPORT),
+
     // Teleport Crystal
     PRIFDDINAS("Prifddinas (Crystal)", new WorldPoint(3264, 6065, 0),
             ItemID.ETERNAL_TELEPORT_CRYSTAL, ItemID.TELEPORT_CRYSTAL,
@@ -217,6 +237,27 @@ public enum TeleportData {
     SPIRIT_TREE_BRIMHAVEN("Spirit Tree (Brimhaven)", new WorldPoint(2802, 3203, 0)),
     SPIRIT_TREE_HOSIDIUS("Spirit Tree (Hosidius)", new WorldPoint(1693, 3542, 0)),
     SPIRIT_TREE_FARMING_GUILD("Spirit Tree (Farming Guild)", new WorldPoint(1253, 3750, 0)),
+
+    // Minigame Teleports (no items - grouping menu)
+    MINIGAME_BARBARIAN_ASSAULT("Barbarian Assault (Minigame)", new WorldPoint(2521, 3570, 0)),
+    MINIGAME_BLAST_FURNACE("Blast Furnace (Minigame)", new WorldPoint(2930, 10193, 0)),
+    MINIGAME_CASTLE_WARS("Castle Wars (Minigame)", new WorldPoint(2442, 3093, 0)),
+    MINIGAME_CLAN_WARS("Clan Wars (Minigame)", new WorldPoint(3149, 3634, 0)),
+    MINIGAME_FISHING_TRAWLER("Fishing Trawler (Minigame)", new WorldPoint(2658, 3157, 0)),
+    MINIGAME_GIANTS_FOUNDRY("Giants' Foundry (Minigame)", new WorldPoint(3361, 3149, 0)),
+    MINIGAME_GUARDIANS_OF_THE_RIFT("Guardians of the Rift (Minigame)", new WorldPoint(3615, 9477, 0)),
+    MINIGAME_MAGE_TRAINING_ARENA("Mage Training Arena (Minigame)", new WorldPoint(3363, 3295, 0)),
+    MINIGAME_NIGHTMARE_ZONE("Nightmare Zone (Minigame)", new WorldPoint(2609, 3114, 0)),
+    MINIGAME_PEST_CONTROL("Pest Control (Minigame)", new WorldPoint(2658, 2663, 0)),
+    MINIGAME_RAT_PITS_ARDOUGNE("Rat Pits Ardougne (Minigame)", new WorldPoint(2561, 3320, 0)),
+    MINIGAME_RAT_PITS_VARROCK("Rat Pits Varrock (Minigame)", new WorldPoint(3267, 3400, 0)),
+    MINIGAME_RAT_PITS_PORT_SARIM("Rat Pits Port Sarim (Minigame)", new WorldPoint(3018, 3232, 0)),
+    MINIGAME_SHADES_OF_MORTTON("Shades of Mort'ton (Minigame)", new WorldPoint(3506, 3304, 0)),
+    MINIGAME_SORCERESS_GARDEN("Sorceress's Garden (Minigame)", new WorldPoint(3321, 3138, 0)),
+    MINIGAME_SOUL_WARS("Soul Wars (Minigame)", new WorldPoint(2018, 5929, 0)),
+    MINIGAME_TITHE_FARM("Tithe Farm (Minigame)", new WorldPoint(2399, 5177, 0)),
+    MINIGAME_TROUBLE_BREWING("Trouble Brewing (Minigame)", new WorldPoint(3801, 3015, 0)),
+    MINIGAME_MASTERING_MIXOLOGY("Mastering Mixology (Minigame)", new WorldPoint(1388, 2918, 0)),
 
     // Burning Amulet (Wilderness)
     CHAOS_TEMPLE("Chaos Temple (Burning)", new WorldPoint(3234, 3634, 0),
@@ -258,15 +299,15 @@ public enum TeleportData {
             ItemID.DRAKANS_MEDALLION),
 
     // Kharedst's Memoirs / Book of the Dead (Kourend)
-    HOSIDIUS("Hosidius (Memoirs)", new WorldPoint(1520, 3478, 0),
+    HOSIDIUS("Lunch by the Lancalliums (Memoirs/Hosidius)", new WorldPoint(1520, 3478, 0),
             ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
-    PISCARILIUS("Piscarilius (Memoirs)", new WorldPoint(1713, 3612, 0),
+    PISCARILIUS("The Fisher's Flute (Memoirs/Piscarilius)", new WorldPoint(1713, 3612, 0),
             ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
-    SHAYZIEN("Shayzien (Memoirs)", new WorldPoint(1804, 3748, 0),
+    SHAYZIEN("History and Hearsay (Memoirs/Shayzien)", new WorldPoint(1804, 3748, 0),
             ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
-    LOVAKENGJ("Lovakengj (Memoirs)", new WorldPoint(1478, 3576, 0),
+    LOVAKENGJ("Jewellery of Jubilation (Memoirs/Lovakengj)", new WorldPoint(1478, 3576, 0),
             ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
-    ARCEUUS("Arceuus (Memoirs)", new WorldPoint(1681, 3747, 0),
+    ARCEUUS("A Dark Disposition (Memoirs/Arceuus)", new WorldPoint(1681, 3747, 0),
             ItemID.KHAREDSTS_MEMOIRS, ItemID.BOOK_OF_THE_DEAD),
 
     // Stony Basalt / Icy Basalt

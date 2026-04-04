@@ -133,6 +133,31 @@ public class LocationOverrides {
                 null
         ));
 
+        // --- Coastal Overrides ---
+
+        // Rimmington area: Glory Karamja teleports to Musa Point (across water), not Rimmington
+        OVERRIDES.add(new OverrideRegion(
+                2910, 2980, 3200, 3260, 0,
+                Arrays.asList(
+                        TeleportData.HOUSE_RIMMINGTON,
+                        TeleportData.EXPLORERS_RING,
+                        TeleportData.SPIRIT_TREE_PORT_SARIM,
+                        TeleportData.FAIRY_AIQ
+                ),
+                "Glory Karamja goes to Musa Point, not Rimmington"
+        ));
+
+        // Emir's Arena / East Al Kharid area: BIP and Mort'ton are across water
+        OVERRIDES.add(new OverrideRegion(
+                3300, 3400, 3200, 3290, 0,
+                Arrays.asList(
+                        TeleportData.MINIGAME_MAGE_TRAINING_ARENA,
+                        TeleportData.AL_KHARID,
+                        TeleportData.LUMBRIDGE
+                ),
+                "Mage Training Arena minigame tele is closest"
+        ));
+
         // --- Rune Altar Interior Overrides ---
         // All altar interiors suggest teleports near Mage of Zamorak for Abyss access.
 
@@ -210,12 +235,62 @@ public class LocationOverrides {
                 Arrays.asList(TeleportData.FALADOR, TeleportData.BURTHORPE),
                 "Taverley Dungeon"));
 
+        // Paterdomus Temple dungeon (Drezel)
+        OVERRIDES.add(new OverrideRegion(
+                3400, 3460, 9870, 9910, 0,
+                Arrays.asList(
+                        TeleportData.FAIRY_CKS,
+                        TeleportData.LUMBERYARD,
+                        TeleportData.VARROCK
+                ),
+                "Paterdomus Temple (Drezel)"
+        ));
+
         // Slayer Tower Basement
         OVERRIDES.add(new OverrideRegion(3400, 3460, 9880, 9960, 0,
                 Arrays.asList(TeleportData.FAIRY_CKS, TeleportData.ECTOPHIAL),
                 "Slayer Tower basement"));
 
+        // Viyeldi Caves (Legends' Quest, under Kharazi Jungle)
+        OVERRIDES.add(new OverrideRegion(2757, 2810, 9288, 9340, 0,
+                Arrays.asList(TeleportData.FAIRY_CKR, TeleportData.TAI_BWO_WANNAI),
+                "Kharazi Jungle entrance"));
+
+        // Stronghold of Security - all 4 floors (TODO: verify coords in-game)
+        OVERRIDES.add(new OverrideRegion(1856, 1920, 5184, 5248, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.VARROCK),
+                "Entrance in Barbarian Village"));
+        OVERRIDES.add(new OverrideRegion(1856, 1920, 5248, 5312, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.VARROCK),
+                "Entrance in Barbarian Village"));
+        OVERRIDES.add(new OverrideRegion(1856, 1920, 5312, 5376, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.VARROCK),
+                "Entrance in Barbarian Village"));
+        OVERRIDES.add(new OverrideRegion(1856, 1920, 5376, 5440, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.VARROCK),
+                "Entrance in Barbarian Village"));
+
+        // Lava Maze Dungeon / Deep Wilderness Dungeon (TODO: verify coords in-game)
+        OVERRIDES.add(new OverrideRegion(3000, 3100, 10200, 10420, 0,
+                Arrays.asList(TeleportData.FEROX_ENCLAVE),
+                "Deep Wilderness dungeon - Ferox as home base"));
+
+        // Cerberus' Lair (inside Taverley Dungeon, TODO: verify coords in-game)
+        OVERRIDES.add(new OverrideRegion(1216, 1340, 1216, 1280, 0,
+                Arrays.asList(TeleportData.FALADOR, TeleportData.BURTHORPE),
+                "Taverley Dungeon entrance"));
+
         // --- Dungeon Overrides (Instanced/Special, Y ~4000-6000) ---
+
+        // Rogues' Den (under Burthorpe pub)
+        OVERRIDES.add(new OverrideRegion(3030, 3080, 4960, 5020, 0,
+                Arrays.asList(TeleportData.BURTHORPE, TeleportData.WARRIORS_GUILD),
+                "Trapdoor in Burthorpe pub"));
+
+        // Abyss inner ring
+        OVERRIDES.add(new OverrideRegion(2980, 3060, 4820, 4880, 0,
+                abyssTeleports,
+                ABYSS_WARNING));
 
         // KBD Lair
         OVERRIDES.add(new OverrideRegion(2240, 2320, 4640, 4730, 0,
@@ -256,6 +331,16 @@ public class LocationOverrides {
         OVERRIDES.add(new OverrideRegion(1960, 2060, 4670, 4760, 0,
                 Arrays.asList(TeleportData.ARDOUGNE),
                 "Underground Pass"));
+
+        // Waterbirth Island Dungeon (TODO: verify underground coords in-game)
+        OVERRIDES.add(new OverrideRegion(2430, 2570, 10100, 10200, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka to Waterbirth"));
+
+        // Miscellania & Etceteria Dungeon (TODO: verify underground coords in-game)
+        OVERRIDES.add(new OverrideRegion(2490, 2640, 10200, 10320, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka to Miscellania"));
 
         // --- Other Special Area Overrides ---
 

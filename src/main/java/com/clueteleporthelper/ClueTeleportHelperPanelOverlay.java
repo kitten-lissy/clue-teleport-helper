@@ -81,9 +81,11 @@ public class ClueTeleportHelperPanelOverlay extends Overlay {
                     .rightColor(new Color(255, 105, 180))
                     .build());
 
-            // Line 2: Distance (only in non-override mode)
-            if (!isOverride) {
-                int distance = teleport.getLocation().distanceTo(clueLocation);
+            // Line 2: Distance in tiles
+            if (teleport.getLocation() != null) {
+                WorldPoint groundClue = new WorldPoint(
+                        clueLocation.getX(), clueLocation.getY(), 0);
+                int distance = teleport.getLocation().distanceTo(groundClue);
                 panelComponent.getChildren().add(LineComponent.builder()
                         .right(distance + " tiles")
                         .rightColor(new Color(255, 160, 122))
