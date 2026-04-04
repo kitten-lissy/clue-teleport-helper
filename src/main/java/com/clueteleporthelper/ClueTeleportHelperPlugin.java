@@ -6,6 +6,7 @@ import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 import net.runelite.client.plugins.cluescrolls.clues.LocationClueScroll;
+import net.runelite.client.plugins.cluescrolls.clues.CrypticClue;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
@@ -84,6 +85,29 @@ public class ClueTeleportHelperPlugin extends Plugin {
 
         WorldPoint clueLocation = getClueLocation(clue);
         if (clueLocation == null) {
+            // No location — check kill tasks and skill challenges by text
+            String clueText = getClueText(clue);
+
+            // Kill task check (cryptic clues like "In a while...")
+            KillTaskData.KillTask killTask = KillTaskData.getKillTask(clueText);
+            if (killTask != null) {
+                currentBestTeleports = new ArrayList<>(killTask.teleports);
+                overrideActive = true;
+                overrideNote = killTask.monsterNote + " — " + killTask.locationNote;
+                inventoryOverlay.updateRelevantItems(currentBestTeleports);
+                return;
+            }
+
+            // Skill challenge check (Sherlock/Charlie tasks)
+            SkillChallengeData.SkillChallenge challenge = SkillChallengeData.getChallenge(clueText);
+            if (challenge != null) {
+                currentBestTeleports = new ArrayList<>(challenge.teleports);
+                overrideActive = true;
+                overrideNote = challenge.locationNote;
+                inventoryOverlay.updateRelevantItems(currentBestTeleports);
+                return;
+            }
+
             inventoryOverlay.updateRelevantItems(currentBestTeleports);
             return;
         }
@@ -146,6 +170,44 @@ public class ClueTeleportHelperPlugin extends Plugin {
                 .limit(MAX_TELEPORTS - currentBestTeleports.size())
                 .collect(Collectors.toList());
         currentBestTeleports.addAll(extras);
+    }
+
+    /**
+     * Try to extract text from a clue by scanning all String fields and getter methods.
+     */
+    private String getClueText(ClueScroll clue) {
+        StringBuilder allText = new StringBuilder();
+
+        // Try common getter methods
+        String[] methodNames = {"getText", "getChallenge", "getChallengeText",
+                "getQuestion", "getQuestionText", "toString"};
+        for (String name : methodNames) {
+            try {
+                java.lang.reflect.Method m = clue.getClass().getMethod(name);
+                Object result = m.invoke(clue);
+                if (result != null) {
+                    allText.append(result.toString()).append(" ");
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        // Also scan all declared fields for strings
+        for (java.lang.reflect.Field f : clue.getClass().getDeclaredFields()) {
+            if (f.getType() == String.class) {
+                try {
+                    f.setAccessible(true);
+                    Object val = f.get(clue);
+                    if (val != null) {
+                        allText.append(val.toString()).append(" ");
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+        String result = allText.toString().trim();
+        return result.isEmpty() ? null : result;
     }
 
     private boolean hasKeyInInventory() {

@@ -158,6 +158,17 @@ public class LocationOverrides {
                 "Mage Training Arena minigame tele is closest"
         ));
 
+        // Burgh de Rott / Barrows / Mort'ton / Meiyerditch: Darkmeyer maze makes it impractical
+        OVERRIDES.add(new OverrideRegion(
+                3470, 3660, 3200, 3340, 0,
+                Arrays.asList(
+                        TeleportData.MINIGAME_SHADES_OF_MORTTON,
+                        TeleportData.VER_SINHAZA,
+                        TeleportData.FAIRY_BKR
+                ),
+                "Shades of Mort'ton minigame tele - avoid Darkmeyer maze"
+        ));
+
         // --- Rune Altar Interior Overrides ---
         // All altar interiors suggest teleports near Mage of Zamorak for Abyss access.
 
@@ -208,7 +219,7 @@ public class LocationOverrides {
         // Yanille Agility Dungeon
         OVERRIDES.add(new OverrideRegion(2550, 2620, 9550, 9630, 0,
                 Arrays.asList(TeleportData.WATCHTOWER),
-                "Yanille dungeon entrance"));
+                "Yanille dungeon north entrance → pray at altar to get sent down"));
 
         // Kourend Catacombs
         OVERRIDES.add(new OverrideRegion(1600, 1730, 9980, 10110, 0,
@@ -317,6 +328,16 @@ public class LocationOverrides {
                 Arrays.asList(TeleportData.TROLLHEIM),
                 "God Wars Dungeon"));
 
+        // Pyramid Plunder interior (Sophanem)
+        OVERRIDES.add(new OverrideRegion(1900, 1970, 4400, 4470, 0,
+                Arrays.asList(
+                        TeleportData.PYRAMID_PLUNDER,
+                        TeleportData.NARDAH,
+                        TeleportData.HOUSE_POLLNIVNEACH
+                ),
+                "Pharaoh's Sceptre direct, or Nardah → run SW to Sophanem → enter pyramid"
+        ));
+
         // Agility Pyramid top
         OVERRIDES.add(new OverrideRegion(3010, 3080, 4660, 4740, 0,
                 Arrays.asList(TeleportData.NARDAH),
@@ -353,6 +374,15 @@ public class LocationOverrides {
         OVERRIDES.add(new OverrideRegion(2280, 2380, 3100, 3220, 0,
                 Arrays.asList(TeleportData.PRIFDDINAS),
                 "Teleport Crystal to Lletya"));
+
+        // Fairy Resistance Hideout (Fairy Queen cipher clue)
+        OVERRIDES.add(new OverrideRegion(2330, 2370, 4420, 4450, 0,
+                Arrays.asList(
+                        TeleportData.EDGEVILLE,
+                        TeleportData.FAIRY_DKR
+                ),
+                "Fairy Ring sequence: AIR → DLR → DJQ → AJS (DJQ fails, then enter AJS)"
+        ));
 
         // Zanaris (fairy realm, special dimension)
         OVERRIDES.add(new OverrideRegion(2368, 2496, 4352, 4480, 0,
