@@ -58,38 +58,63 @@ public class ClueTeleportHelperPanelOverlay extends Overlay {
                     .build());
         }
 
-        for (int i = 0; i < bestTeleports.size(); i++) {
-            TeleportData teleport = bestTeleports.get(i);
-            String fullName = teleport.getName();
+        // Multi-step mode: show best teleport per step
+        if (plugin.isMultiStep()) {
+            java.util.List<String> stepNotes = plugin.getMultiStepNotes();
+            for (int i = 0; i < bestTeleports.size(); i++) {
+                TeleportData teleport = bestTeleports.get(i);
+                String fullName = teleport.getName();
 
-            // Split "Destination (Item)" into two parts
-            String destination = fullName;
-            String itemHint = null;
-            int parenStart = fullName.lastIndexOf('(');
-            if (parenStart > 0) {
-                destination = fullName.substring(0, parenStart).trim();
-                itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
-            }
+                String destination = fullName;
+                String itemHint = null;
+                int parenStart = fullName.lastIndexOf('(');
+                if (parenStart > 0) {
+                    destination = fullName.substring(0, parenStart).trim();
+                    itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
+                }
 
-            String displayText = (i + 1) + ". " + destination;
+                String displayText = "Step " + (i + 1) + ": " + destination;
 
-            // Line 1: Destination (light pink) | Item (hot pink)
-            panelComponent.getChildren().add(LineComponent.builder()
-                    .left(displayText)
-                    .leftColor(new Color(255, 182, 193))
-                    .right(itemHint)
-                    .rightColor(new Color(255, 105, 180))
-                    .build());
-
-            // Line 2: Distance in tiles
-            if (teleport.getLocation() != null) {
-                WorldPoint groundClue = new WorldPoint(
-                        clueLocation.getX(), clueLocation.getY(), 0);
-                int distance = teleport.getLocation().distanceTo(groundClue);
                 panelComponent.getChildren().add(LineComponent.builder()
-                        .right(distance + " tiles")
-                        .rightColor(new Color(255, 160, 122))
+                        .left(displayText)
+                        .leftColor(new Color(255, 182, 193))
+                        .right(itemHint)
+                        .rightColor(new Color(255, 105, 180))
                         .build());
+            }
+        } else {
+            // Normal single-step mode
+            for (int i = 0; i < bestTeleports.size(); i++) {
+                TeleportData teleport = bestTeleports.get(i);
+                String fullName = teleport.getName();
+
+                String destination = fullName;
+                String itemHint = null;
+                int parenStart = fullName.lastIndexOf('(');
+                if (parenStart > 0) {
+                    destination = fullName.substring(0, parenStart).trim();
+                    itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
+                }
+
+                String displayText = (i + 1) + ". " + destination;
+
+                panelComponent.getChildren().add(LineComponent.builder()
+                        .left(displayText)
+                        .leftColor(new Color(255, 182, 193))
+                        .right(itemHint)
+                        .rightColor(new Color(255, 105, 180))
+                        .build());
+
+                // Distance in tiles
+                if (teleport.getLocation() != null) {
+                    WorldPoint groundClue = new WorldPoint(
+                            clueLocation.getX(), clueLocation.getY(), 0);
+                    int distance = teleport.getLocation().distanceTo(groundClue);
+                    panelComponent.getChildren().add(LineComponent.builder()
+                            .right(distance + " tiles")
+                            .rightColor(new Color(255, 160, 122))
+                            .build());
+                }
             }
         }
 

@@ -7,6 +7,7 @@ import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 import net.runelite.client.plugins.cluescrolls.clues.LocationClueScroll;
 import net.runelite.client.plugins.cluescrolls.clues.CrypticClue;
+import net.runelite.client.plugins.cluescrolls.clues.HotColdClue;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
@@ -54,6 +55,8 @@ public class ClueTeleportHelperPlugin extends Plugin {
     private List<TeleportData> currentBestTeleports = new ArrayList<>();
     private boolean overrideActive = false;
     private String overrideNote = null;
+    private boolean multiStep = false;
+    private List<String> multiStepNotes = new ArrayList<>();
 
     @Override
     protected void startUp() {
@@ -76,9 +79,38 @@ public class ClueTeleportHelperPlugin extends Plugin {
 
     private void updateRelevantTeleports() {
         currentBestTeleports.clear();
+        multiStep = false;
+        multiStepNotes.clear();
 
         ClueScroll clue = clueScrollPlugin.getClue();
-        if (clue == null) {
+        if (clue == null || clue instanceof HotColdClue) {
+            inventoryOverlay.updateRelevantItems(currentBestTeleports);
+            return;
+        }
+
+        // Check for multi-step clues (three-step cryptics)
+        WorldPoint[] allLocations = getAllClueLocations(clue);
+        if (allLocations != null && allLocations.length > 1) {
+            multiStep = true;
+            overrideActive = true;
+            overrideNote = "Multi-step clue — " + allLocations.length + " steps remaining";
+            for (WorldPoint loc : allLocations) {
+                WorldPoint ground = new WorldPoint(loc.getX(), loc.getY(), 0);
+                // Check overrides first (handles instanced/special areas)
+                LocationOverrides.OverrideResult override = LocationOverrides.getOverride(ground);
+                TeleportData best;
+                if (override != null && !override.teleports.isEmpty()) {
+                    best = override.teleports.get(0);
+                } else {
+                    best = Arrays.stream(TeleportData.values())
+                            .filter(tp -> tp.getLocation() != null)
+                            .min(Comparator.comparingInt(tp -> tp.getLocation().distanceTo(ground)))
+                            .orElse(null);
+                }
+                if (best != null) {
+                    currentBestTeleports.add(best);
+                }
+            }
             inventoryOverlay.updateRelevantItems(currentBestTeleports);
             return;
         }
@@ -225,6 +257,16 @@ public class ClueTeleportHelperPlugin extends Plugin {
         return false;
     }
 
+    private WorldPoint[] getAllClueLocations(ClueScroll clue) {
+        if (clue instanceof LocationClueScroll) {
+            WorldPoint[] locations = ((LocationClueScroll) clue).getLocations(clueScrollPlugin);
+            if (locations != null && locations.length > 1) {
+                return locations;
+            }
+        }
+        return null;
+    }
+
     private WorldPoint getClueLocation(ClueScroll clue) {
         if (clue instanceof LocationClueScroll) {
             WorldPoint[] locations = ((LocationClueScroll) clue).getLocations(clueScrollPlugin);
@@ -245,6 +287,14 @@ public class ClueTeleportHelperPlugin extends Plugin {
 
     public String getOverrideNote() {
         return overrideNote;
+    }
+
+    public boolean isMultiStep() {
+        return multiStep;
+    }
+
+    public List<String> getMultiStepNotes() {
+        return multiStepNotes;
     }
 
     public WorldPoint getClueScrollLocation() {

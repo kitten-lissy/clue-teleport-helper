@@ -122,6 +122,16 @@ public class LocationOverrides {
                 "Fairy Ring BJS"
         ));
 
+        // Kharazi Jungle (mossy rock, legends quest area)
+        OVERRIDES.add(new OverrideRegion(
+                2740, 2860, 2900, 3010, 0,
+                Arrays.asList(
+                        TeleportData.FAIRY_CKR,
+                        TeleportData.TAI_BWO_WANNAI
+                ),
+                "Fairy Ring CKR or Tai Bwo Wannai → south to Kharazi Jungle"
+        ));
+
         // Karamja - Cairn Isle (south Karamja, walk-only)
         OVERRIDES.add(new OverrideRegion(
                 2750, 2840, 2950, 3020, 0,
@@ -370,6 +380,17 @@ public class LocationOverrides {
                 Arrays.asList(TeleportData.PRIFDDINAS),
                 "Teleport Crystal / Eternal Crystal"));
 
+        // Iorwerth Camp / North Tirannwn: Prifddinas Crystal is in special dimension coords
+        OVERRIDES.add(new OverrideRegion(
+                2140, 2280, 3200, 3360, 0,
+                Arrays.asList(
+                        TeleportData.IORWERTH_CAMP,
+                        TeleportData.PRIFDDINAS,
+                        TeleportData.WEST_ARDOUGNE
+                ),
+                "Iorwerth Camp tablet or Crystal seed to Prifddinas"
+        ));
+
         // Lletya (hidden elf village in Tirannwn)
         OVERRIDES.add(new OverrideRegion(2280, 2380, 3100, 3220, 0,
                 Arrays.asList(TeleportData.PRIFDDINAS),
@@ -402,6 +423,17 @@ public class LocationOverrides {
         OVERRIDES.add(new OverrideRegion(2688, 2752, 5248, 5376, 0,
                 Arrays.asList(TeleportData.LUMBRIDGE),
                 "Lumbridge cellar entrance"));
+
+        // Wilderness Resource Area
+        OVERRIDES.add(new OverrideRegion(
+                3160, 3200, 3920, 3960, 0,
+                Arrays.asList(
+                        TeleportData.EDGEVILLE_LEVER,
+                        TeleportData.FEROX_ENCLAVE,
+                        TeleportData.EDGEVILLE
+                ),
+                "Edgeville Dungeon lever drops you right next to it"
+        ));
 
         // Deep Wilderness (level ~30+)
         OVERRIDES.add(new OverrideRegion(2940, 3400, 3752, 3968, 0,

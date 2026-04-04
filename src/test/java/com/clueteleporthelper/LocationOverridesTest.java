@@ -85,7 +85,7 @@ public class LocationOverridesTest {
 
     @Test
     public void testYanilleAgilityDungeon() {
-        assertOverrideContains(getOverride(2580, 9590), "Yanille dungeon entrance", TeleportData.WATCHTOWER);
+        assertOverrideContains(getOverride(2580, 9590), "Yanille dungeon north entrance → pray at altar to get sent down", TeleportData.WATCHTOWER);
     }
 
     @Test
