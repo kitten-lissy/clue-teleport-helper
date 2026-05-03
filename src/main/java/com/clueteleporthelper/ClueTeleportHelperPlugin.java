@@ -205,41 +205,24 @@ public class ClueTeleportHelperPlugin extends Plugin {
     }
 
     /**
-     * Try to extract text from a clue by scanning all String fields and getter methods.
+     * Try to extract text from a clue using only public API methods (no reflection).
      */
     private String getClueText(ClueScroll clue) {
-        StringBuilder allText = new StringBuilder();
-
-        // Try common getter methods
-        String[] methodNames = {"getText", "getChallenge", "getChallengeText",
-                "getQuestion", "getQuestionText", "toString"};
-        for (String name : methodNames) {
-            try {
-                java.lang.reflect.Method m = clue.getClass().getMethod(name);
-                Object result = m.invoke(clue);
-                if (result != null) {
-                    allText.append(result.toString()).append(" ");
-                }
-            } catch (Exception ignored) {
-            }
+        if (clue == null) {
+            return null;
         }
 
-        // Also scan all declared fields for strings
-        for (java.lang.reflect.Field f : clue.getClass().getDeclaredFields()) {
-            if (f.getType() == String.class) {
-                try {
-                    f.setAccessible(true);
-                    Object val = f.get(clue);
-                    if (val != null) {
-                        allText.append(val.toString()).append(" ");
-                    }
-                } catch (Exception ignored) {
-                }
-            }
+        // Use public toString() method - no reflection needed
+        String text = clue.toString();
+
+        // Check if toString() gives us useful text (not just object reference like "ClueScroll@abc123")
+        if (text != null && !text.matches(".*@[0-9a-f]+$")) {
+            return text;
         }
 
-        String result = allText.toString().trim();
-        return result.isEmpty() ? null : result;
+        // If toString() doesn't contain useful text, return null
+        // This means we can't identify kill tasks/skill challenges for this clue type
+        return null;
     }
 
     private boolean hasKeyInInventory() {
