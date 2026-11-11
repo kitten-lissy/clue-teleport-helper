@@ -15,7 +15,7 @@ public class KeyClueData {
 
     static {
         // "A graceful man of many colours..."
-        // Kill any Hill Giant → Search crate on 2nd floor of Osten's shop, Shayzien
+        // Kill any Hill Giant then Search crate on 2nd floor of Osten's shop, Shayzien
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(1506, 3590, 2),
                 "Kill Hill Giant near Shayzien for key",
@@ -25,7 +25,7 @@ public class KeyClueData {
         ));
 
         // "Search the basket of apples in an orchard..."
-        // Kill any Hill Giant → Search basket of apples in Hosidius
+        // Kill any Hill Giant then Search basket of apples in Hosidius
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(1718, 3626, 0),
                 "Kill any Hill Giant for key (Edgeville Dungeon / Varrock Sewers)",
@@ -35,7 +35,7 @@ public class KeyClueData {
         ));
 
         // "Go to the village being attacked by trolls..."
-        // Kill Penda in The Toad and Chicken → Search drawers in Dunstan's house, Burthorpe
+        // Kill Penda in The Toad and Chicken then Search drawers in Dunstan's house, Burthorpe
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2921, 3577, 0),
                 "Kill Penda in The Toad and Chicken pub, Burthorpe",
@@ -45,7 +45,7 @@ public class KeyClueData {
         ));
 
         // "Go to this building to be illuminated..."
-        // Kill guard in Rellekka marketplace → Search drawers on 1st floor of Lighthouse
+        // Kill guard in Rellekka marketplace then Search drawers on 1st floor of Lighthouse
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2512, 3641, 1),
                 "Kill a Guard in Rellekka marketplace for key",
@@ -55,7 +55,7 @@ public class KeyClueData {
         ));
 
         // "In a town where everyone has perfect vision..."
-        // Kill any chicken → Search drawers in Seers' Village
+        // Kill any chicken then Search drawers in Seers' Village
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2709, 3478, 0),
                 "Kill any Chicken for key (farm south of Seers')",
@@ -65,7 +65,7 @@ public class KeyClueData {
         ));
 
         // "In a town where the guards are armed with maces..."
-        // Kill guard dog at Handelmort Mansion → Search upstairs of pub N of Ardougne Castle
+        // Kill guard dog at Handelmort Mansion then Search upstairs of pub N of Ardougne Castle
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2574, 3326, 1),
                 "Kill Guard Dog at Handelmort Mansion, Ardougne",
@@ -75,7 +75,7 @@ public class KeyClueData {
         ));
 
         // "In a town where thieves steal from stalls..."
-        // Kill any guard in East Ardougne → Search drawers upstairs in Jerico's house
+        // Kill any guard in East Ardougne then Search drawers upstairs in Jerico's house
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2611, 3324, 1),
                 "Kill any Guard in East Ardougne for key",
@@ -85,7 +85,7 @@ public class KeyClueData {
         ));
 
         // "In a town where wizards are known to gather..."
-        // Kill any man nearby → Search upstairs chest in house NW of Yanille bank
+        // Kill any man nearby then Search upstairs chest in house NW of Yanille bank
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2593, 3108, 1),
                 "Kill any Man in Yanille for key",
@@ -95,7 +95,7 @@ public class KeyClueData {
         ));
 
         // "Search the upstairs drawers of a house in a village where pirates..."
-        // Kill any pirate in Brimhaven → Search drawers upstairs in SE house
+        // Kill any pirate in Brimhaven then Search drawers upstairs in SE house
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(2809, 3165, 1),
                 "Kill any Pirate in Brimhaven for key",
@@ -105,7 +105,7 @@ public class KeyClueData {
         ));
 
         // "Probably filled with wizards socks."
-        // Kill any wizard at Wizards' Tower → Search drawers in basement
+        // Kill any wizard at Wizards' Tower then Search drawers in basement
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(3116, 9562, 0),
                 "Kill any Wizard at the tower for key",
@@ -115,7 +115,7 @@ public class KeyClueData {
         ));
 
         // "The dead, red dragon watches over this chest..."
-        // Kill any barbarian → Search chest in Barbarian Village
+        // Kill any barbarian then Search chest in Barbarian Village
         KEY_CLUES.add(new KeyClue(
                 new WorldPoint(3353, 3332, 0),
                 "Kill any Barbarian for key",

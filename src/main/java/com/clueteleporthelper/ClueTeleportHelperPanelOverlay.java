@@ -1,7 +1,5 @@
 package com.clueteleporthelper;
 
-import net.runelite.api.Client;
-import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -10,118 +8,112 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
 import javax.inject.Inject;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.List;
 
 public class ClueTeleportHelperPanelOverlay extends Overlay {
 
-    private final Client client;
+    private static final Color UNUSABLE = new Color(128, 128, 128);
+
     private final ClueTeleportHelperPlugin plugin;
+    private final ClueTeleportHelperConfig config;
     private final PanelComponent panelComponent = new PanelComponent();
 
     @Inject
-    public ClueTeleportHelperPanelOverlay(Client client, ClueTeleportHelperPlugin plugin) {
-        this.client = client;
+    public ClueTeleportHelperPanelOverlay(ClueTeleportHelperPlugin plugin, ClueTeleportHelperConfig config) {
         this.plugin = plugin;
+        this.config = config;
         setPosition(OverlayPosition.TOP_LEFT);
         setPriority(OverlayPriority.HIGH);
     }
 
     @Override
     public Dimension render(Graphics2D graphics) {
-        List<TeleportData> bestTeleports = plugin.getBestTeleports();
+        List<TeleportSuggestion> lines = plugin.getSuggestions();
+        String note = plugin.getNote();
 
-        if (bestTeleports == null || bestTeleports.isEmpty()) {
-            return null;
-        }
-
-        WorldPoint clueLocation = plugin.getClueScrollLocation();
-        if (clueLocation == null) {
+        // Kill tasks and skill challenges have no tile, so the panel must not depend on one.
+        if (lines.isEmpty() && note == null) {
             return null;
         }
 
         panelComponent.getChildren().clear();
-        panelComponent.setPreferredSize(new Dimension(280, 0));
+        panelComponent.setPreferredSize(new Dimension(config.panelWidth(), 0));
 
         panelComponent.getChildren().add(TitleComponent.builder()
                 .text("Best Teleports")
-                .color(new Color(255, 105, 180))
+                .color(config.titleColour())
                 .build());
 
-        boolean isOverride = plugin.isOverrideActive();
-        String overrideNote = plugin.getOverrideNote();
-
-        if (isOverride && overrideNote != null) {
+        if (note != null) {
             panelComponent.getChildren().add(LineComponent.builder()
-                    .left(overrideNote)
-                    .leftColor(new Color(255, 215, 0))
+                    .left(note)
+                    .leftColor(config.noteColour())
                     .build());
         }
 
-        // Multi-step mode: show best teleport per step
-        if (plugin.isMultiStep()) {
-            java.util.List<String> stepNotes = plugin.getMultiStepNotes();
-            for (int i = 0; i < bestTeleports.size(); i++) {
-                TeleportData teleport = bestTeleports.get(i);
-                String fullName = teleport.getName();
+        boolean showMethod = config.showMethod();
+        boolean showDistance = config.showDistance();
 
-                String destination = fullName;
-                String itemHint = null;
-                int parenStart = fullName.lastIndexOf('(');
-                if (parenStart > 0) {
-                    destination = fullName.substring(0, parenStart).trim();
-                    itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
-                }
+        for (int i = 0; i < lines.size(); i++) {
+            TeleportSuggestion line = lines.get(i);
 
-                String displayText = "Step " + (i + 1) + ": " + destination;
+            String prefix = line.getLabel() != null ? line.getLabel() + ": " : (i + 1) + ". ";
+            String left = prefix + line.getDestination() + (line.isWilderness() ? " (Wildy)" : "");
+            Color leftColor = !line.isUsable() ? UNUSABLE
+                    : line.isWilderness() ? config.wildernessColour()
+                    : config.destinationColour();
 
+            Integer distance = showDistance ? line.getDistance() : null;
+            String distanceText = distance != null ? distance + " tiles" : null;
+            Color distanceColor = distance != null ? distanceColor(distance) : null;
+
+            if (showMethod) {
                 panelComponent.getChildren().add(LineComponent.builder()
-                        .left(displayText)
-                        .leftColor(new Color(255, 182, 193))
-                        .right(itemHint)
-                        .rightColor(new Color(255, 105, 180))
+                        .left(left)
+                        .leftColor(leftColor)
+                        .right(line.getMethodLabel())
+                        .rightColor(line.isUsable() ? config.methodColour() : UNUSABLE)
                         .build());
-            }
-        } else {
-            // Normal single-step mode
-            for (int i = 0; i < bestTeleports.size(); i++) {
-                TeleportData teleport = bestTeleports.get(i);
-                String fullName = teleport.getName();
-
-                String destination = fullName;
-                String itemHint = null;
-                int parenStart = fullName.lastIndexOf('(');
-                if (parenStart > 0) {
-                    destination = fullName.substring(0, parenStart).trim();
-                    itemHint = fullName.substring(parenStart + 1, fullName.length() - 1);
-                }
-
-                String displayText = (i + 1) + ". " + destination;
-
-                panelComponent.getChildren().add(LineComponent.builder()
-                        .left(displayText)
-                        .leftColor(new Color(255, 182, 193))
-                        .right(itemHint)
-                        .rightColor(new Color(255, 105, 180))
-                        .build());
-
-                // Distance in tiles
-                if (teleport.getLocation() != null) {
-                    WorldPoint groundClue = new WorldPoint(
-                            clueLocation.getX(), clueLocation.getY(), 0);
-                    int distance = teleport.getLocation().distanceTo(groundClue);
+                if (distanceText != null) {
                     panelComponent.getChildren().add(LineComponent.builder()
-                            .right(distance + " tiles")
-                            .rightColor(new Color(255, 160, 122))
+                            .right(distanceText)
+                            .rightColor(distanceColor)
                             .build());
                 }
+            } else {
+                // Without the method hint there is room for the distance on the same line.
+                panelComponent.getChildren().add(LineComponent.builder()
+                        .left(left)
+                        .leftColor(leftColor)
+                        .right(distanceText)
+                        .rightColor(distanceColor)
+                        .build());
             }
+        }
+
+        String footnote = plugin.getFootnote();
+        if (footnote != null) {
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left(footnote)
+                    .leftColor(UNUSABLE)
+                    .build());
         }
 
         return panelComponent.render(graphics);
     }
 
-    private Color getDistanceColor(int distance) {
+    private Color distanceColor(int distance) {
+        if (!config.colourDistances()) {
+            return config.distanceColour();
+        }
+        return distanceShade(distance);
+    }
+
+    /** Deep pink up to 20 tiles, hot pink up to 50, light pink beyond. */
+    static Color distanceShade(int distance) {
         if (distance <= 20) {
             return new Color(255, 20, 147);
         } else if (distance <= 50) {

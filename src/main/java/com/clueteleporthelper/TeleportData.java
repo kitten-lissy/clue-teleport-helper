@@ -2,7 +2,11 @@ package com.clueteleporthelper;
 
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.ItemID;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 public enum TeleportData {
     // Normal Magic Teleports
@@ -16,8 +20,10 @@ public enum TeleportData {
             ItemID.CAMELOT_TELEPORT, ItemID.LAW_RUNE),
     ARDOUGNE("Ardougne (Spell/Tab)", new WorldPoint(2664, 3306, 0),
             ItemID.ARDOUGNE_TELEPORT, ItemID.LAW_RUNE),
-    WATCHTOWER("Watchtower (Spell)", new WorldPoint(2547, 3114, 0)),
-    TROLLHEIM("Trollheim (Spell)", new WorldPoint(2891, 3678, 0)),
+    WATCHTOWER("Watchtower (Spell/Tab)", new WorldPoint(2547, 3114, 0),
+            ItemID.WATCHTOWER_TELEPORT, ItemID.LAW_RUNE),
+    TROLLHEIM("Trollheim (Spell)", new WorldPoint(2891, 3678, 0),
+            ItemID.LAW_RUNE),
 
     // Amulet of Glory teleports
     EDGEVILLE("Edgeville (Glory)", new WorldPoint(3087, 3496, 0),
@@ -162,41 +168,58 @@ public enum TeleportData {
     WATSON("Watson (Scroll)", new WorldPoint(1645, 3579, 0),
             ItemID.WATSON_TELEPORT),
 
-    // Fairy Rings
-    FAIRY_AIQ("Fairy Ring AIQ (Mudskipper Point)", new WorldPoint(2996, 3114, 0)),
-    FAIRY_AIR("Fairy Ring AIR (East Karamja)", new WorldPoint(2700, 3247, 0)),
-    FAIRY_AJQ("Fairy Ring AJQ (Cave S of Yanille)", new WorldPoint(2735, 5221, 0)),
-    FAIRY_AJR("Fairy Ring AJR (Slayer Cave)", new WorldPoint(2780, 3613, 0)),
-    FAIRY_AJS("Fairy Ring AJS (Penguins)", new WorldPoint(2500, 3896, 0)),
-    FAIRY_AKQ("Fairy Ring AKQ (Piscatoris)", new WorldPoint(2319, 3619, 0)),
-    FAIRY_AKS("Fairy Ring AKS (Feldip Hunter)", new WorldPoint(2571, 2956, 0)),
-    FAIRY_ALP("Fairy Ring ALP (Lighthouse)", new WorldPoint(2503, 3636, 0)),
-    FAIRY_ALQ("Fairy Ring ALQ (Haunted Woods)", new WorldPoint(3597, 3495, 0)),
-    FAIRY_ALS("Fairy Ring ALS (McGrubor's Wood)", new WorldPoint(2644, 3495, 0)),
-    FAIRY_BIP("Fairy Ring BIP (Kharidian Desert)", new WorldPoint(3410, 3324, 0)),
-    FAIRY_BIQ("Fairy Ring BIQ (Kalphite Lair)", new WorldPoint(3251, 3095, 0)),
-    FAIRY_BJR("Fairy Ring BJR (Fisher Realm)", new WorldPoint(2650, 4730, 0)),
-    FAIRY_BKP("Fairy Ring BKP (S Karamja)", new WorldPoint(2385, 3035, 0)),
-    FAIRY_BKQ("Fairy Ring BKQ (Enchanted Valley)", new WorldPoint(3041, 4532, 0)),
-    FAIRY_BKR("Fairy Ring BKR (Mort Myre)", new WorldPoint(3469, 3431, 0)),
-    FAIRY_BKS("Fairy Ring BKS (Zanaris)", new WorldPoint(2412, 4434, 0)),
-    FAIRY_BLP("Fairy Ring BLP (TzHaar)", new WorldPoint(2437, 5126, 0)),
-    FAIRY_CIP("Fairy Ring CIP (Miscellania)", new WorldPoint(2513, 3884, 0)),
-    FAIRY_CIQ("Fairy Ring CIQ (NW Yanille)", new WorldPoint(2528, 3127, 0)),
-    FAIRY_CJR("Fairy Ring CJR (Sinclair Mansion)", new WorldPoint(2705, 3576, 0)),
-    FAIRY_CKP("Fairy Ring CKP (Cosmic Altar)", new WorldPoint(2075, 4848, 0)),
-    FAIRY_CKR("Fairy Ring CKR (S of Tai Bwo Wannai)", new WorldPoint(2801, 3003, 0)),
-    FAIRY_CKS("Fairy Ring CKS (Canifis)", new WorldPoint(3447, 3470, 0)),
-    FAIRY_CLP("Fairy Ring CLP (Draynor Island)", new WorldPoint(3082, 3206, 0)),
-    FAIRY_DIS("Fairy Ring DIS (Wizards' Tower)", new WorldPoint(3108, 3149, 0)),
-    FAIRY_DJP("Fairy Ring DJP (Tower of Life)", new WorldPoint(2658, 3230, 0)),
-    FAIRY_DJR("Fairy Ring DJR (Chasm of Fire)", new WorldPoint(2676, 3587, 0)),
-    FAIRY_DKP("Fairy Ring DKP (Karamja S)", new WorldPoint(2900, 3111, 0)),
-    FAIRY_DKR("Fairy Ring DKR (Edgeville)", new WorldPoint(3131, 3496, 0)),
-    FAIRY_DKS("Fairy Ring DKS (Rellekka)", new WorldPoint(2744, 3719, 0)),
-    FAIRY_DLQ("Fairy Ring DLQ (Kharidian Desert)", new WorldPoint(3423, 3016, 0)),
-    FAIRY_DLR("Fairy Ring DLR (Poison Waste)", new WorldPoint(2213, 3099, 0)),
-    FAIRY_BJS("Fairy Ring BJS (Zul-Andra)", new WorldPoint(2147, 3069, 0)),
+    // Fairy Rings (no items - needs a dramen or lunar staff)
+    // Labels follow RuneLite's FairyRing enum. Rings added in 2026-11 take their
+    // coordinates from RuneLite's world map FairyRingLocation enum (client 1.13.6).
+    FAIRY_AIQ("Mudskipper Point (Fairy Ring AIQ)", new WorldPoint(2996, 3114, 0)),
+    FAIRY_AIR("Island SE of Ardougne (Fairy Ring AIR)", new WorldPoint(2700, 3247, 0)),
+    FAIRY_AIS("Auburn Valley (Fairy Ring AIS)", new WorldPoint(1430, 3323, 0)),
+    FAIRY_AJP("Avium Savannah (Fairy Ring AJP)", new WorldPoint(1648, 3011, 0)),
+    FAIRY_AJQ("Cave S of Dorgesh-Kaan (Fairy Ring AJQ)", new WorldPoint(2735, 5221, 0)),
+    FAIRY_AJR("Slayer Cave (Fairy Ring AJR)", new WorldPoint(2780, 3613, 0)),
+    FAIRY_AJS("Penguins (Fairy Ring AJS)", new WorldPoint(2500, 3896, 0)),
+    FAIRY_AKP("Necropolis (Fairy Ring AKP)", new WorldPoint(3283, 2704, 0)),
+    FAIRY_AKQ("Piscatoris (Fairy Ring AKQ)", new WorldPoint(2319, 3619, 0)),
+    FAIRY_AKR("Hosidius Vinery (Fairy Ring AKR)", new WorldPoint(1823, 3539, 0)),
+    FAIRY_AKS("Feldip Hunter (Fairy Ring AKS)", new WorldPoint(2571, 2956, 0)),
+    FAIRY_ALP("Lighthouse (Fairy Ring ALP)", new WorldPoint(2503, 3636, 0)),
+    FAIRY_ALQ("Haunted Woods (Fairy Ring ALQ)", new WorldPoint(3597, 3495, 0)),
+    FAIRY_ALS("McGrubor's Wood (Fairy Ring ALS)", new WorldPoint(2644, 3495, 0)),
+    FAIRY_BIP("Island SW of Mort Myre (Fairy Ring BIP)", new WorldPoint(3410, 3324, 0)),
+    FAIRY_BIQ("Kalphite Hive (Fairy Ring BIQ)", new WorldPoint(3251, 3095, 0)),
+    FAIRY_BIS("Ardougne Zoo (Fairy Ring BIS)", new WorldPoint(2635, 3268, 0)),
+    FAIRY_BJP("Isle of Souls (Fairy Ring BJP)", new WorldPoint(2264, 2976, 0)),
+    FAIRY_BJR("Fisher Realm (Fairy Ring BJR)", new WorldPoint(2650, 4730, 0)),
+    FAIRY_BJS("Zul-Andra (Fairy Ring BJS)", new WorldPoint(2147, 3069, 0)),
+    FAIRY_BKP("S of Castle Wars (Fairy Ring BKP)", new WorldPoint(2385, 3035, 0)),
+    FAIRY_BKQ("Enchanted Valley (Fairy Ring BKQ)", new WorldPoint(3041, 4532, 0)),
+    FAIRY_BKR("Mort Myre (Fairy Ring BKR)", new WorldPoint(3469, 3431, 0)),
+    FAIRY_BKS("Zanaris (Fairy Ring BKS)", new WorldPoint(2412, 4434, 0)),
+    FAIRY_BLP("TzHaar (Fairy Ring BLP)", new WorldPoint(2437, 5126, 0)),
+    FAIRY_BLR("Legends' Guild (Fairy Ring BLR)", new WorldPoint(2739, 3353, 0)),
+    FAIRY_BLS("S of Mount Quidamortem (Fairy Ring BLS)", new WorldPoint(1293, 3495, 0)),
+    FAIRY_CIP("Miscellania (Fairy Ring CIP)", new WorldPoint(2513, 3884, 0)),
+    FAIRY_CIQ("NW Yanille (Fairy Ring CIQ)", new WorldPoint(2528, 3127, 0)),
+    FAIRY_CIR("NE of Farming Guild (Fairy Ring CIR)", new WorldPoint(1303, 3762, 0)),
+    FAIRY_CIS("N of Arceuus Library (Fairy Ring CIS)", new WorldPoint(1636, 3869, 0)),
+    FAIRY_CJQ("The Great Conch (Fairy Ring CJQ)", new WorldPoint(3178, 2445, 0)),
+    FAIRY_CJR("Sinclair Mansion (Fairy Ring CJR)", new WorldPoint(2705, 3576, 0)),
+    FAIRY_CKP("Cosmic Entity's Plane (Fairy Ring CKP)", new WorldPoint(2075, 4848, 0)),
+    FAIRY_CKQ("Aldarin (Fairy Ring CKQ)", new WorldPoint(1358, 2943, 0)),
+    FAIRY_CKR("S of Tai Bwo Wannai (Fairy Ring CKR)", new WorldPoint(2801, 3003, 0)),
+    FAIRY_CKS("Canifis (Fairy Ring CKS)", new WorldPoint(3447, 3470, 0)),
+    FAIRY_CLP("Draynor Island (Fairy Ring CLP)", new WorldPoint(3082, 3206, 0)),
+    FAIRY_CLR("Ape Atoll (Fairy Ring CLR)", new WorldPoint(2737, 2739, 0)),
+    FAIRY_CLS("Hazelmere's Island (Fairy Ring CLS)", new WorldPoint(2681, 3083, 0)),
+    FAIRY_DIS("Wizards' Tower (Fairy Ring DIS)", new WorldPoint(3108, 3149, 0)),
+    FAIRY_DJP("Tower of Life (Fairy Ring DJP)", new WorldPoint(2658, 3230, 0)),
+    FAIRY_DJR("Chasm of Fire (Fairy Ring DJR)", new WorldPoint(1452, 3659, 0)),
+    FAIRY_DKP("S of Musa Point (Fairy Ring DKP)", new WorldPoint(2900, 3111, 0)),
+    FAIRY_DKR("Edgeville (Fairy Ring DKR)", new WorldPoint(3131, 3496, 0)),
+    FAIRY_DKS("Polar Hunter Area (Fairy Ring DKS)", new WorldPoint(2744, 3719, 0)),
+    FAIRY_DLP("Grimstone Dungeon (Fairy Ring DLP)", new WorldPoint(2923, 10455, 0)),
+    FAIRY_DLQ("N of Nardah (Fairy Ring DLQ)", new WorldPoint(3423, 3016, 0)),
+    FAIRY_DLR("Poison Waste (Fairy Ring DLR)", new WorldPoint(2213, 3099, 0)),
 
     // House Teleport Tabs (Redirected)
     HOUSE_RIMMINGTON("Rimmington (House Tab)", new WorldPoint(2954, 3224, 0),
@@ -286,17 +309,17 @@ public enum TeleportData {
             ItemID.TELEPORT_CRYSTAL_1),
 
     // Spirit Trees (no items - interact with tree directly)
-    SPIRIT_TREE_GNOME_STRONGHOLD("Spirit Tree (Gnome Stronghold)", new WorldPoint(2459, 3446, 0)),
-    SPIRIT_TREE_GNOME_VILLAGE("Spirit Tree (Gnome Village)", new WorldPoint(2538, 3166, 0)),
-    SPIRIT_TREE_KHAZARD("Spirit Tree (Battlefield of Khazard)", new WorldPoint(2554, 3259, 0)),
-    SPIRIT_TREE_GRAND_EXCHANGE("Spirit Tree (Grand Exchange)", new WorldPoint(3184, 3510, 0)),
-    SPIRIT_TREE_FELDIP("Spirit Tree (Feldip Hills)", new WorldPoint(2486, 2850, 0)),
-    SPIRIT_TREE_POISON_WASTE("Spirit Tree (Poison Waste)", new WorldPoint(2339, 3111, 0)),
-    SPIRIT_TREE_ETCETERIA("Spirit Tree (Etceteria)", new WorldPoint(2613, 3858, 0)),
-    SPIRIT_TREE_PORT_SARIM("Spirit Tree (Port Sarim)", new WorldPoint(3060, 3258, 0)),
-    SPIRIT_TREE_BRIMHAVEN("Spirit Tree (Brimhaven)", new WorldPoint(2802, 3203, 0)),
-    SPIRIT_TREE_HOSIDIUS("Spirit Tree (Hosidius)", new WorldPoint(1693, 3542, 0)),
-    SPIRIT_TREE_FARMING_GUILD("Spirit Tree (Farming Guild)", new WorldPoint(1253, 3750, 0)),
+    SPIRIT_TREE_GNOME_STRONGHOLD("Gnome Stronghold (Spirit Tree)", new WorldPoint(2459, 3446, 0)),
+    SPIRIT_TREE_GNOME_VILLAGE("Gnome Village (Spirit Tree)", new WorldPoint(2538, 3166, 0)),
+    SPIRIT_TREE_KHAZARD("Battlefield of Khazard (Spirit Tree)", new WorldPoint(2554, 3259, 0)),
+    SPIRIT_TREE_GRAND_EXCHANGE("Grand Exchange (Spirit Tree)", new WorldPoint(3184, 3510, 0)),
+    SPIRIT_TREE_FELDIP("Feldip Hills (Spirit Tree)", new WorldPoint(2486, 2850, 0)),
+    SPIRIT_TREE_POISON_WASTE("Poison Waste (Spirit Tree)", new WorldPoint(2339, 3111, 0)),
+    SPIRIT_TREE_ETCETERIA("Etceteria (Spirit Tree)", new WorldPoint(2613, 3858, 0)),
+    SPIRIT_TREE_PORT_SARIM("Port Sarim (Spirit Tree)", new WorldPoint(3060, 3258, 0)),
+    SPIRIT_TREE_BRIMHAVEN("Brimhaven (Spirit Tree)", new WorldPoint(2802, 3203, 0)),
+    SPIRIT_TREE_HOSIDIUS("Hosidius (Spirit Tree)", new WorldPoint(1693, 3542, 0)),
+    SPIRIT_TREE_FARMING_GUILD("Farming Guild (Spirit Tree)", new WorldPoint(1253, 3750, 0)),
 
     // Wilderness Levers (no items - lever pull)
     EDGEVILLE_LEVER("Edgeville Dungeon Lever (Deserted Keep)", new WorldPoint(3154, 3924, 0)),
@@ -397,6 +420,29 @@ public enum TeleportData {
             ItemID.PHARAOHS_SCEPTRE_9050, ItemID.PHARAOHS_SCEPTRE_9051,
             ItemID.PHARAOHS_SCEPTRE_UNCHARGED, ItemID.PHARAOHS_SCEPTRE_26948, ItemID.PHARAOHS_SCEPTRE_26950);
 
+    /**
+     * How a teleport is used. Drives the "no item" toggles and the spellbook filter.
+     */
+    public enum Method {
+        STANDARD_SPELL,
+        ITEM,
+        FAIRY_RING,
+        SPIRIT_TREE,
+        MINIGAME,
+        LEVER
+    }
+
+    /**
+     * Destinations inside the Wilderness (checked against the OSRS wiki: Burning amulet
+     * lists level 15, 17 and 41; Cemetery Teleport lands at level 31; the levers lead to
+     * the Deserted Keep). Ferox Enclave is a safe zone and is deliberately not listed.
+     */
+    private static final Set<TeleportData> WILDERNESS = Collections.unmodifiableSet(EnumSet.of(
+            CHAOS_TEMPLE, BANDIT_CAMP, LAVA_MAZE, CEMETERY, EDGEVILLE_LEVER, ARDOUGNE_LEVER));
+
+    private static final Set<TeleportData> STANDARD_SPELLS = Collections.unmodifiableSet(EnumSet.of(
+            VARROCK, LUMBRIDGE, FALADOR, CAMELOT, ARDOUGNE, WATCHTOWER, TROLLHEIM));
+
     private final String name;
     private final WorldPoint location;
     private final List<Integer> itemIds;
@@ -404,12 +450,14 @@ public enum TeleportData {
     TeleportData(String name, WorldPoint location, int... itemIds) {
         this.name = name;
         this.location = location;
-        this.itemIds = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
         for (int id : itemIds) {
-            this.itemIds.add(id);
+            ids.add(id);
         }
+        this.itemIds = Collections.unmodifiableList(ids);
     }
 
+    /** Full display name, for example "Edgeville (Glory)". */
     public String getName() {
         return name;
     }
@@ -418,11 +466,52 @@ public enum TeleportData {
         return location;
     }
 
+    /** The place part of the name, for example "Edgeville". */
     public String getDestination() {
-        return name;
+        int paren = name.lastIndexOf('(');
+        return paren > 0 ? name.substring(0, paren).trim() : name;
+    }
+
+    /** The item or method part of the name, for example "Glory". Null when there is none. */
+    public String getMethodLabel() {
+        int paren = name.lastIndexOf('(');
+        if (paren > 0 && name.endsWith(")")) {
+            return name.substring(paren + 1, name.length() - 1);
+        }
+        return null;
     }
 
     public List<Integer> getItemIds() {
         return itemIds;
+    }
+
+    public Method getMethod() {
+        if (STANDARD_SPELLS.contains(this)) {
+            return Method.STANDARD_SPELL;
+        }
+        String id = name();
+        if (id.startsWith("FAIRY_")) {
+            return Method.FAIRY_RING;
+        }
+        if (id.startsWith("SPIRIT_TREE_")) {
+            return Method.SPIRIT_TREE;
+        }
+        if (id.startsWith("MINIGAME_")) {
+            return Method.MINIGAME;
+        }
+        if (id.endsWith("_LEVER")) {
+            return Method.LEVER;
+        }
+        return Method.ITEM;
+    }
+
+    /** True for teleports that need no item (fairy rings, spirit trees, minigame teleports, levers). */
+    public boolean isNoItem() {
+        Method m = getMethod();
+        return m == Method.FAIRY_RING || m == Method.SPIRIT_TREE || m == Method.MINIGAME || m == Method.LEVER;
+    }
+
+    public boolean isWilderness() {
+        return WILDERNESS.contains(this);
     }
 }

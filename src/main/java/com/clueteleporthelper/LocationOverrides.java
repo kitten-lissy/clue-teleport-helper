@@ -129,7 +129,7 @@ public class LocationOverrides {
                         TeleportData.FAIRY_CKR,
                         TeleportData.TAI_BWO_WANNAI
                 ),
-                "Fairy Ring CKR or Tai Bwo Wannai → south to Kharazi Jungle"
+                "Fairy Ring CKR or Tai Bwo Wannai, then south to Kharazi Jungle"
         ));
 
         // Karamja - Cairn Isle (south Karamja, walk-only)
@@ -229,7 +229,7 @@ public class LocationOverrides {
         // Yanille Agility Dungeon
         OVERRIDES.add(new OverrideRegion(2550, 2620, 9550, 9630, 0,
                 Arrays.asList(TeleportData.WATCHTOWER),
-                "Yanille dungeon north entrance → pray at altar to get sent down"));
+                "Yanille dungeon north entrance, then pray at altar to get sent down"));
 
         // Kourend Catacombs
         OVERRIDES.add(new OverrideRegion(1600, 1730, 9980, 10110, 0,
@@ -345,7 +345,7 @@ public class LocationOverrides {
                         TeleportData.NARDAH,
                         TeleportData.HOUSE_POLLNIVNEACH
                 ),
-                "Pharaoh's Sceptre direct, or Nardah → run SW to Sophanem → enter pyramid"
+                "Pharaoh's Sceptre direct, or Nardah, then run SW to Sophanem and enter pyramid"
         ));
 
         // Agility Pyramid top
@@ -402,7 +402,7 @@ public class LocationOverrides {
                         TeleportData.EDGEVILLE,
                         TeleportData.FAIRY_DKR
                 ),
-                "Fairy Ring sequence: AIR → DLR → DJQ → AJS (DJQ fails, then enter AJS)"
+                "Fairy Ring sequence: AIR to DLR to DJQ to AJS (DJQ fails, then enter AJS)"
         ));
 
         // Zanaris (fairy realm, special dimension)

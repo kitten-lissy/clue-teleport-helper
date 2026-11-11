@@ -14,7 +14,7 @@ repositories {
 }
 
 def runeLiteVersion = 'latest.release'
-def pluginMainClass = 'com.clueteleporthelper.ExamplePluginTest'
+def pluginMainClass = 'com.clueteleporthelper.ClueTeleportHelperPluginTest'
 dependencies {
 	compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
 

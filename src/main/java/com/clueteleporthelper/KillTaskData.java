@@ -12,7 +12,7 @@ public class KillTaskData {
     private static final List<KillTask> KILL_TASKS = new ArrayList<>();
 
     static {
-        // "In a while..." → Kill a crocodile
+        // "In a while...": kill a crocodile
         KILL_TASKS.add(new KillTask(
                 "In a while",
                 "Kill a Crocodile",
@@ -20,7 +20,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.HOUSE_POLLNIVNEACH, TeleportData.NARDAH)
         ));
 
-        // "Ghostly bones." → Kill an Ankou
+        // "Ghostly bones.": kill an Ankou
         KILL_TASKS.add(new KillTask(
                 "Ghostly bones",
                 "Kill an Ankou",
@@ -28,7 +28,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.EDGEVILLE, TeleportData.XERICS_HEART)
         ));
 
-        // "A demon's best friend holds the next step" → Kill a Hellhound
+        // "A demon's best friend holds the next step": kill a Hellhound
         KILL_TASKS.add(new KillTask(
                 "demon's best friend",
                 "Kill a Hellhound",
@@ -36,7 +36,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.FALADOR, TeleportData.XERICS_HEART)
         ));
 
-        // "You'll get licked." → Kill a Bloodveld
+        // "You'll get licked.": kill a Bloodveld
         KILL_TASKS.add(new KillTask(
                 "You'll get licked",
                 "Kill a Bloodveld",
@@ -44,7 +44,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.SLAYER_TOWER, TeleportData.XERICS_HEART)
         ));
 
-        // "Reflection is the weakness for these eyes of evil." → Kill a Basilisk
+        // "Reflection is the weakness for these eyes of evil.": kill a Basilisk
         KILL_TASKS.add(new KillTask(
                 "Reflection is the weakness",
                 "Kill a Basilisk (bring mirror shield!)",
@@ -52,7 +52,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.FREMENNIK_SLAYER_DUNGEON, TeleportData.FAIRY_DKS)
         ));
 
-        // "Let's hope you don't meet a watery death" → Kill a Waterfiend
+        // "Let's hope you don't meet a watery death": kill a Waterfiend
         KILL_TASKS.add(new KillTask(
                 "watery death",
                 "Kill a Waterfiend",
@@ -60,7 +60,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.BARBARIAN_ASSAULT, TeleportData.MINIGAME_BARBARIAN_ASSAULT)
         ));
 
-        // "You will have to fly high where a sword cannot help you." → Kill an Aviansie
+        // "You will have to fly high where a sword cannot help you.": kill an Aviansie
         KILL_TASKS.add(new KillTask(
                 "fly high where a sword cannot",
                 "Kill an Aviansie (ranged only!)",
@@ -68,7 +68,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.TROLLHEIM, TeleportData.HOUSE_TROLLHEIM)
         ));
 
-        // "Mix yellow with blue and add heat, make sure you bring protection." → Kill a Green Dragon
+        // "Mix yellow with blue and add heat, make sure you bring protection.": kill a Green Dragon
         KILL_TASKS.add(new KillTask(
                 "Mix yellow with blue",
                 "Kill a Green Dragon (antifire!)",
@@ -76,7 +76,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.FEROX_ENCLAVE, TeleportData.MINIGAME_CLAN_WARS)
         ));
 
-        // "You'll have to plug your nose if you use this source of herbs." → Kill an Aberrant Spectre
+        // "You'll have to plug your nose if you use this source of herbs.": kill an Aberrant Spectre
         KILL_TASKS.add(new KillTask(
                 "plug your nose",
                 "Kill an Aberrant Spectre (nosepeg/slayer helm!)",
@@ -84,7 +84,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.SLAYER_TOWER, TeleportData.XERICS_HEART)
         ));
 
-        // "You might have to turn over a few stones to progress." → Kill a Rock Crab
+        // "You might have to turn over a few stones to progress.": kill a Rock Crab
         KILL_TASKS.add(new KillTask(
                 "turn over a few stones",
                 "Kill a Rock Crab",
@@ -92,7 +92,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.FAIRY_DKS, TeleportData.HOUSE_RELLEKKA)
         ));
 
-        // "Banish a chilling spirit." → Kill a Frost Nagua
+        // "Banish a chilling spirit.": kill a Frost Nagua
         KILL_TASKS.add(new KillTask(
                 "chilling spirit",
                 "Kill a Frost Nagua",
@@ -100,7 +100,7 @@ public class KillTaskData {
                 Arrays.asList(TeleportData.FREMENNIK_SLAYER_DUNGEON, TeleportData.FAIRY_DKS)
         ));
 
-        // "Crush the spirited earth." → Kill an Earthen Nagua
+        // "Crush the spirited earth.": kill an Earthen Nagua
         KILL_TASKS.add(new KillTask(
                 "spirited earth",
                 "Kill an Earthen Nagua",

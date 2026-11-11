@@ -1,69 +1,85 @@
 package com.clueteleporthelper;
 
-import net.runelite.api.Client;
 import net.runelite.api.ItemID;
-import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.api.widgets.WidgetUtil;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
-import net.runelite.client.ui.overlay.components.LineComponent;
-import net.runelite.client.ui.overlay.components.PanelComponent;
-import net.runelite.client.ui.overlay.components.TitleComponent;
 
 import javax.inject.Inject;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ClueTeleportHelperInventoryOverlay extends WidgetItemOverlay {
 
-    private final Client client;
-    private final ClueTeleportHelperPlugin plugin;
-    private final PanelComponent panelComponent = new PanelComponent();
-    private Set<Integer> relevantItemIds = new HashSet<>();
+    private final ClueTeleportHelperConfig config;
+    private volatile Set<Integer> relevantItemIds = Collections.emptySet();
 
     @Inject
-    public ClueTeleportHelperInventoryOverlay(Client client, ClueTeleportHelperPlugin plugin) {
-        this.client = client;
-        this.plugin = plugin;
+    public ClueTeleportHelperInventoryOverlay(ClueTeleportHelperConfig config) {
+        this.config = config;
         showOnInventory();
+        showOnBank();
+        showOnEquipment();
     }
 
     @Override
     public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem widgetItem) {
-        if (relevantItemIds.contains(itemId)) {
-            Rectangle bounds = widgetItem.getCanvasBounds();
+        if (!relevantItemIds.contains(itemId) || !shouldHighlight(widgetItem)) {
+            return;
+        }
+        Rectangle bounds = widgetItem.getCanvasBounds();
 
-            // Hot pink fill (more transparent)
-            graphics.setColor(new Color(255, 105, 180, 80));
-            graphics.fill(bounds);
+        Color fill = config.highlightFillColour();
+        graphics.setColor(new Color(fill.getRed(), fill.getGreen(), fill.getBlue(), config.highlightFillOpacity()));
+        graphics.fill(bounds);
 
-            // Hot pink border (solid, thicker)
-            graphics.setColor(new Color(255, 20, 147));
-            graphics.setStroke(new BasicStroke(3));
+        int width = config.highlightBorderWidth();
+        if (width > 0) {
+            graphics.setColor(config.highlightBorderColour());
+            graphics.setStroke(new BasicStroke(width));
             graphics.draw(bounds);
         }
     }
 
-    public void updateRelevantItems(List<TeleportData> bestTeleports) {
-        relevantItemIds.clear();
-
-        if (bestTeleports == null || bestTeleports.isEmpty()) {
-            return;
+    private boolean shouldHighlight(WidgetItem widgetItem) {
+        Widget widget = widgetItem.getWidget();
+        int group = widget == null ? -1 : WidgetUtil.componentToInterface(widget.getId());
+        if (group == InterfaceID.BANKMAIN) {
+            return config.highlightBank();
         }
-
-        // Collect ALL item IDs from ALL best teleports
-        for (TeleportData teleport : bestTeleports) {
-            relevantItemIds.addAll(teleport.getItemIds());
+        if (group == InterfaceID.WORNITEMS) {
+            return config.highlightEquipment();
         }
+        return config.highlightInventory();
+    }
 
-        // Add items that work for multiple teleports
-        relevantItemIds.add(ItemID.LAW_RUNE);
-
-        // If any fairy ring is in the list, add dramen/lunar staff
-        if (bestTeleports.stream().anyMatch(t -> t.getName().contains("Fairy Ring"))) {
-            relevantItemIds.add(ItemID.DRAMEN_STAFF);
-            relevantItemIds.add(ItemID.LUNAR_STAFF);
+    /**
+     * Collect the items behind the suggested teleports. Law runes come only from the
+     * spells that need them, so they light up only when a spell is suggested.
+     */
+    public void updateRelevantItems(List<TeleportSuggestion> suggestions) {
+        Set<Integer> ids = new HashSet<>();
+        boolean fairyRing = false;
+        for (TeleportSuggestion line : suggestions) {
+            for (TeleportData tp : line.getTeleports()) {
+                ids.addAll(tp.getItemIds());
+                if (tp.getMethod() == TeleportData.Method.FAIRY_RING) {
+                    fairyRing = true;
+                }
+            }
         }
+        if (fairyRing) {
+            ids.add(ItemID.DRAMEN_STAFF);
+            ids.add(ItemID.LUNAR_STAFF);
+        }
+        relevantItemIds = Collections.unmodifiableSet(ids);
     }
 }
