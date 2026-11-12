@@ -57,7 +57,7 @@ public class TeleportRanker {
         if (fill && target != null) {
             Arrays.stream(TeleportData.values())
                     .filter(tp -> tp.getLocation() != null && allowed.test(tp) && !candidates.contains(tp))
-                    .sorted(Comparator.comparingInt(tp -> tp.getLocation().distanceTo(target)))
+                    .sorted(Comparator.comparingInt(tp -> surface(tp.getLocation()).distanceTo(surface(target))))
                     .forEach(candidates::add);
         }
 
@@ -118,11 +118,31 @@ public class TeleportRanker {
         if (target == null || tp.getLocation() == null) {
             return null;
         }
-        boolean targetBelow = target.getY() >= UNDERGROUND_Y;
-        boolean teleportBelow = tp.getLocation().getY() >= UNDERGROUND_Y;
+        WorldPoint from = surface(tp.getLocation());
+        WorldPoint to = surface(target);
+        boolean targetBelow = to.getY() >= UNDERGROUND_Y;
+        boolean teleportBelow = from.getY() >= UNDERGROUND_Y;
         if (targetBelow != teleportBelow) {
             return null;
         }
-        return tp.getLocation().distanceTo(target);
+        return from.distanceTo(to);
+    }
+
+    /** Most dungeons and basements sit exactly 6400 tiles north of the ground above them. */
+    static final int DUNGEON_MIN_Y = 9000;
+    static final int DUNGEON_MAX_Y = 10600;
+    static final int DUNGEON_OFFSET = 6400;
+
+    /**
+     * The point on the surface above a dungeon or basement tile, so a clue in the
+     * Varrock bank basement ranks Varrock teleports first. Other points are returned
+     * unchanged (on plane 0, so upper floors compare by position only).
+     */
+    static WorldPoint surface(WorldPoint p) {
+        int y = p.getY();
+        if (y >= DUNGEON_MIN_Y && y < DUNGEON_MAX_Y) {
+            y -= DUNGEON_OFFSET;
+        }
+        return new WorldPoint(p.getX(), y, 0);
     }
 }

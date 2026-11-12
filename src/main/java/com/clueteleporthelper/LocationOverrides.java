@@ -202,6 +202,9 @@ public class LocationOverrides {
         OVERRIDES.add(new OverrideRegion(2368, 2416, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
         // Death Altar interior
         OVERRIDES.add(new OverrideRegion(2176, 2224, 4800, 4864, 0, abyssTeleports, ABYSS_WARNING));
+        // Outside the Death Altar (Thorgel, ~1863, 4639). Distance alone picks Tarn's Lair.
+        OVERRIDES.add(new OverrideRegion(1840, 1890, 4620, 4660, 0, abyssTeleports,
+                ABYSS_WARNING + " Death rift, then leave the altar to reach Thorgel."));
         // Blood Altar interior
         OVERRIDES.add(new OverrideRegion(3200, 3264, 4800, 4880, 0, abyssTeleports, ABYSS_WARNING));
         // Soul Altar interior
@@ -413,6 +416,38 @@ public class LocationOverrides {
                         TeleportData.FAIRY_CKS
                 ),
                 "Any Fairy Ring"));
+
+        // --- Instanced clue spots (coordinates from RuneLite's clue data) ---
+
+        // Puro-Puro (Immenizz anagram, ~2592, 4324)
+        OVERRIDES.add(new OverrideRegion(2560, 2630, 4290, 4360, 0,
+                Arrays.asList(TeleportData.EDGEVILLE, TeleportData.FAIRY_DKR, TeleportData.FAIRY_CKS),
+                "Any Fairy Ring to Zanaris, then the wheat field in the middle"));
+
+        // Varrock Museum basement (terrorbird display, ~1756, 4940)
+        OVERRIDES.add(new OverrideRegion(1720, 1790, 4910, 4970, 0,
+                Arrays.asList(TeleportData.VARROCK),
+                "Varrock Museum, stairs down to the basement"));
+
+        // Burthorpe games room (~2207, 4952)
+        OVERRIDES.add(new OverrideRegion(2180, 2230, 4930, 4975, 0,
+                Arrays.asList(TeleportData.BURTHORPE),
+                "Games room, stairs down in the Burthorpe games hall"));
+
+        // Waterbirth Island Dungeon, ladder to the Dagannoth Kings (~1910, 4367)
+        OVERRIDES.add(new OverrideRegion(1880, 1940, 4340, 4400, 0,
+                rellekkaTeleports,
+                "Boat from Rellekka to Waterbirth"));
+
+        // Viyeldi caves, below the mossy rock (~2410, 4714)
+        OVERRIDES.add(new OverrideRegion(2380, 2440, 4690, 4740, 0,
+                Arrays.asList(TeleportData.FAIRY_CKR, TeleportData.TAI_BWO_WANNAI),
+                "Kharazi Jungle entrance"));
+
+        // Shadow Dungeon, north-east corner (~2744, 5116)
+        OVERRIDES.add(new OverrideRegion(2681, 2780, 5080, 5150, 0,
+                Arrays.asList(TeleportData.BARBARIAN_ASSAULT),
+                "Ring of visibility required"));
 
         // Keldagrim (underground dwarf city)
         OVERRIDES.add(new OverrideRegion(2816, 2960, 10048, 10240, 0,

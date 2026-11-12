@@ -130,10 +130,13 @@ public class TeleportRankerTest {
     }
 
     @Test
-    public void distanceHiddenBetweenSurfaceAndUnderground() {
-        WorldPoint underground = new WorldPoint(2930, 10193, 0);
-        assertNull(TeleportRanker.distance(TeleportData.EDGEVILLE, underground));
-        assertNotNull(TeleportRanker.distance(TeleportData.MINIGAME_BLAST_FURNACE, underground));
+    public void distanceUsesGroundAboveDungeonsAndHidesInstances() {
+        // A dungeon tile is measured from the ground above it (West Varrock bank basement)
+        Integer basement = TeleportRanker.distance(TeleportData.VARROCK, new WorldPoint(3187, 9825, 0));
+        assertNotNull(basement);
+        assertTrue(basement < 40);
+        // Instanced areas have no ground above them, so no distance is shown
+        assertNull(TeleportRanker.distance(TeleportData.EDGEVILLE, new WorldPoint(1863, 4639, 0)));
         assertEquals(Integer.valueOf(0), TeleportRanker.distance(TeleportData.VARROCK, new WorldPoint(3213, 3424, 0)));
         assertNull(TeleportRanker.distance(TeleportData.VARROCK, null));
     }

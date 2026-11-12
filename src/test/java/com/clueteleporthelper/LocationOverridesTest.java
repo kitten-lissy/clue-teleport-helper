@@ -156,6 +156,35 @@ public class LocationOverridesTest {
     }
 
     @Test
+    public void testThorgelOutsideDeathAltar() {
+        assertOverrideContains(getOverride(1863, 4639), "Via Abyss (Wilderness - be careful!) Death rift, then leave the altar to reach Thorgel.", TeleportData.EDGEVILLE, TeleportData.FAIRY_DKR);
+    }
+
+    @Test
+    public void testInstancedClueSpotsFromRuneLiteData() {
+        assertOverrideContains(getOverride(2592, 4324), null, TeleportData.FAIRY_DKR);       // Immenizz, Puro-Puro
+        assertOverrideContains(getOverride(1756, 4940), null, TeleportData.VARROCK);         // Varrock Museum basement
+        assertOverrideContains(getOverride(2207, 4952), null, TeleportData.BURTHORPE);       // Burthorpe games room
+        assertOverrideContains(getOverride(1910, 4367), null, TeleportData.FAIRY_AJR);       // Waterbirth, DKs ladder
+        assertOverrideContains(getOverride(2410, 4714), null, TeleportData.FAIRY_CKR);       // Viyeldi caves
+        assertOverrideContains(getOverride(2744, 5116), null, TeleportData.BARBARIAN_ASSAULT); // Shadow Dungeon
+    }
+
+    @Test
+    public void testSlayerRingDestinationsMatchWiki() {
+        assertEquals(new WorldPoint(3185, 4601, 0), TeleportData.TARNS_LAIR.getLocation());
+        assertEquals(new WorldPoint(2028, 4636, 0), TeleportData.DARK_BEASTS.getLocation());
+    }
+
+    @Test
+    public void testBasementCluesRankByTheGroundAbove() {
+        TeleportRanker ranker = new TeleportRanker(1, false, tp -> true, tp -> true);
+        // "Search in the basement of the West Varrock bank."
+        assertEquals(TeleportData.VARROCK,
+                ranker.rank(new WorldPoint(3187, 9825, 0), java.util.Collections.emptyList(), true).get(0).getPrimary());
+    }
+
+    @Test
     public void testKBDLair() {
         assertOverrideContains(getOverride(2280, 4680), "Wilderness lever (be careful!)", TeleportData.EDGEVILLE, TeleportData.FEROX_ENCLAVE);
     }
